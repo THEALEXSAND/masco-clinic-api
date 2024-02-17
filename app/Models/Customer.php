@@ -9,7 +9,13 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'nombre',
+        'apellido',
+        'cedula',
+        'direccion',
+        'telefono'
+    ];
 
     /**
      * Get all of the pets for the Customer

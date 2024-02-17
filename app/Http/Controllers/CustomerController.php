@@ -42,9 +42,9 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCustomerRequest $request)
+    public function store(StoreCustomerRequest $req)
     {
-        //
+        return new CustomerResource(Customer::create($req->all()));
     }
 
     /**
@@ -70,9 +70,9 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(UpdateCustomerRequest $req, Customer $customer)
     {
-        //
+        $customer->update($req->all());
     }
 
     /**
