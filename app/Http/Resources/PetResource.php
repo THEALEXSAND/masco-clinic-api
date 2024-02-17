@@ -16,9 +16,9 @@ class PetResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'customerId' => $this->custome_id,
+            'customerId' => $this->customer_id,
             'nombre' => $this->nombre,
-            'tipoAnimal' => $this->tipoAnimal,
+            'tipoAnimal' => $this->tipo_animal,
             'raza' => $this->raza,
             'sexo' => $this->sexo,
             'edad' => $this->edad,

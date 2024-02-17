@@ -8,6 +8,9 @@ use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetCollection;
 use Illuminate\Http\Request;
 use App\Filters\PetFilter;
+use App\Http\Requests\BulkStorePetRequest;
+use App\Http\Resources\PetResource;
+use Illuminate\Support\Arr;
 
 class PetController extends Controller
 {
@@ -35,6 +38,18 @@ class PetController extends Controller
     }
 
     /**
+     * Store an array of newly created resources in storage.
+     */
+    public function bulkStore(BulkStorePetRequest $req)
+    {
+        $bulk = collect($req->all())->map(function ($arr, $key) {
+            return Arr::except($arr, ['customerId', 'tipoAnimal']);
+        });
+
+        Pet::insert($bulk->toArray());
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(StorePetRequest $request)
@@ -47,7 +62,7 @@ class PetController extends Controller
      */
     public function show(Pet $pet)
     {
-        //
+        return new PetResource($pet);
     }
 
     /**
