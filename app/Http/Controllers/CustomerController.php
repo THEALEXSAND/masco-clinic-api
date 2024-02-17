@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerCollection;
+use App\Http\Resources\CustomerResource;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -51,7 +52,11 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        $includePets = request()->query('includePets');
+
+        if ($includePets) return new CustomerResource($customer->loadMissing('pets'));
+
+        return new CustomerResource($customer);
     }
 
     /**
