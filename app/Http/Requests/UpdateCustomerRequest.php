@@ -11,7 +11,7 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,24 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method;
+
+        if ($method === 'PUT') {
+            return [
+                'nombre' => ['required'],
+                'apellido' => ['required'],
+                'cedula' => ['required'],
+                'direccion' => ['required'],
+                'telefono' => ['required'],
+            ];
+        } else {
+            return [
+                'nombre' => ['sometimes', 'required'],
+                'apellido' => ['sometimes', 'required'],
+                'cedula' => ['sometimes', 'required'],
+                'direccion' => ['sometimes', 'required'],
+                'telefono' => ['sometimes', 'required'],
+            ];
+        }
     }
 }
