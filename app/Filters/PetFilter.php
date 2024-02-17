@@ -8,10 +8,10 @@ use App\Filters\ApiFilter;
 class PetFilter extends ApiFilter
 {
     protected $safeParams = [
-        'customer_id' => ['eq'],
+        'customerId' => ['eq'],
         'nombre' => ['eq'],
         'raza' => ['eq'],
-        'tipo_animal' => ['eq'],
+        'tipoAnimal' => ['eq'],
         'sexo' => ['eq'],
         'edad' => ['eq', 'gt', 'lt'],
     ];

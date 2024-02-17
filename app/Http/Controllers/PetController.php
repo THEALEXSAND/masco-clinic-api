@@ -22,7 +22,6 @@ class PetController extends Controller
         if (count($queryItems) === 0) return new PetCollection(Pet::paginate());
         else {
             $pets = Pet::where($queryItems)->paginate();
-
             return new PetCollection($pets->appends($req->query()));
         }
     }
