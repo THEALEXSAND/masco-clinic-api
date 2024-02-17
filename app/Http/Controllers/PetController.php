@@ -6,17 +6,25 @@ use App\Models\Pet;
 use App\Http\Requests\StorePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetCollection;
+use Illuminate\Http\Request;
+use App\Filters\PetFilter;
 
 class PetController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $req)
     {
-        $pets = Pet::paginate();
+        $filter = new PetFilter;
+        $queryItems = $filter->transform($req);
 
-        return new PetCollection($pets);
+        if (count($queryItems) === 0) return new PetCollection(Pet::paginate());
+        else {
+            $pets = Pet::where($queryItems)->paginate();
+
+            return new PetCollection($pets->appends($req->query()));
+        }
     }
 
     /**
