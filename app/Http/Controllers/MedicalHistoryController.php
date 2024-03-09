@@ -75,5 +75,7 @@ class MedicalHistoryController extends Controller
     public function destroy(MedicalHistory $medicalHistory)
     {
         $medicalHistory->delete();
+
+        return ['message' => 'Medical History deleted successfully'];
     }
 }
