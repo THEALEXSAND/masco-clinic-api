@@ -66,6 +66,10 @@ class PetController extends Controller
      */
     public function show(Pet $pet)
     {
+        $includeHistory = request()->query('includeHistory');
+
+        if ($includeHistory) return new PetResource($pet->loadMissing('medicalHistory'));
+
         return new PetResource($pet);
     }
 
