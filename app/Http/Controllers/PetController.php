@@ -19,14 +19,18 @@ class PetController extends Controller
      */
     public function index(Request $req)
     {
-        $filter = new PetFilter;
+        $filter = new PetFilter();
         $queryItems = $filter->transform($req);
 
-        if (count($queryItems) === 0) return new PetCollection(Pet::paginate());
-        else {
-            $pets = Pet::where($queryItems)->paginate();
-            return new PetCollection($pets->appends($req->query()));
+        $includeHistory = $req->query('includeHistory');
+
+        $pets = Pet::where($queryItems);
+
+        if ($includeHistory) {
+            $pets = $pets->with('medicalHistory');
         }
+
+        return new PetCollection($pets->paginate()->appends($req->query()));
     }
 
     /**
