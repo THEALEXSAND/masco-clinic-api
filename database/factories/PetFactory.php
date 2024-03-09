@@ -22,7 +22,6 @@ class PetFactory extends Factory
         $breed = $animalType === 'Perro' ? $this->faker->randomElement(['Labrador', 'Golden Retriever', 'Jack Russell Terrier', 'Chihuahua', 'Husky', 'Dalmata']) : $this->faker->randomElement(['Abisinio', 'Americano de pelo duro', 'Asiático', 'Balinés', 'Bengalí', 'Birmano', 'Bobtail japonés de pelo corto', 'Bobtail japonés de pelo largo']);
 
         return [
-            //
             'customer_id' => Customer::factory(),
             'nombre' => $this->faker->firstName(),
             'raza' => $breed,
