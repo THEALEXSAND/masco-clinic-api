@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pet_id')->unique();
-            $table->string('observacion', 255);
+            $table->string('observacion', 255)->nullable();
             $table->foreign('pet_id')->references('id')->on('pets')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

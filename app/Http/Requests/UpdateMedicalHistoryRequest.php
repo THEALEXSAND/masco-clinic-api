@@ -26,12 +26,12 @@ class UpdateMedicalHistoryRequest extends FormRequest
         if ($method === 'PUT') {
             return [
                 'petId' => ['required', 'integer'],
-                'observacion' => ['required']
+                'observacion' => ['nullable']
             ];
         } else {
             return [
                 'petId' => ['sometimes', 'integer'],
-                'observacion' => ['sometimes']
+                'observacion' => ['sometimes', 'nullable']
             ];
         }
     }
