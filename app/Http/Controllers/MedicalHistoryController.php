@@ -48,7 +48,7 @@ class MedicalHistoryController extends Controller
      */
     public function show(MedicalHistory $medicalHistory)
     {
-        //
+        return new MedicalHistoryResource($medicalHistory);
     }
 
     /**
@@ -62,9 +62,11 @@ class MedicalHistoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMedicalHistoryRequest $request, MedicalHistory $medicalHistory)
+    public function update(UpdateMedicalHistoryRequest $req, MedicalHistory $medicalHistory)
     {
-        //
+        $medicalHistory->update($req->all());
+
+        return ['message' => 'Medical History updated successfully'];
     }
 
     /**
@@ -72,6 +74,6 @@ class MedicalHistoryController extends Controller
      */
     public function destroy(MedicalHistory $medicalHistory)
     {
-        //
+        $medicalHistory->delete();
     }
 }
