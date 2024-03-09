@@ -25,7 +25,7 @@ class CustomerSeeder extends Seeder
 
         Customer::factory()
             ->count(5)
-            ->has(Pet::factory()->count(3)->hasMedicalHistory())
+            ->has(Pet::factory()->count(3))
             ->create();
     }
 }

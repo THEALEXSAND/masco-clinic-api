@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateMedicalHistoryRequest;
 use App\Http\Resources\MedicalHistoryCollection;
 use Illuminate\Http\Request;
 use App\Filters\MedicalHistoryFilter;
+use App\Http\Resources\MedicalHistoryResource;
 
 class MedicalHistoryController extends Controller
 {
@@ -37,9 +38,9 @@ class MedicalHistoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMedicalHistoryRequest $request)
+    public function store(StoreMedicalHistoryRequest $req)
     {
-        //
+        return new MedicalHistoryResource(MedicalHistory::create($req->all()));
     }
 
     /**

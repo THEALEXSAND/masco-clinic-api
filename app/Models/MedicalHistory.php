@@ -9,7 +9,10 @@ class MedicalHistory extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'pet_id',
+        'observacion'
+    ];
 
     /**
      * Get all of the Consultations for the MedicalHistory
