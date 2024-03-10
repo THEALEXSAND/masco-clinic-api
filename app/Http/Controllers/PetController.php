@@ -42,12 +42,19 @@ class PetController extends Controller
      */
     public function bulkStore(BulkStorePetRequest $req)
     {
-        $bulk = collect($req->all())->map(function ($arr, $key) {
-            return Arr::except($arr, ['customerId', 'tipoAnimal']);
-        });
-
-        Pet::insert($bulk->toArray());
+        try {
+            $bulk = collect($req->all())->map(function ($arr, $key) {
+                return Arr::except($arr, ['customerId', 'tipoAnimal']);
+            });
+    
+            Pet::insert($bulk->toArray());
+    
+            return response()->json(['message' => 'Pets created successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error creating pets: ' . $e->getMessage()], 500);
+        }
     }
+     
 
     /**
      * Store a newly created resource in storage.
