@@ -2,7 +2,6 @@
 
 namespace App\Filters;
 
-use Illuminate\Http\Request;
 use App\Filters\ApiFilter;
 
 class PetFilter extends ApiFilter
@@ -13,7 +12,7 @@ class PetFilter extends ApiFilter
         'raza' => ['eq'],
         'tipoAnimal' => ['eq'],
         'sexo' => ['eq'],
-        'edad' => ['eq', 'gt', 'lt'],
+        'edad' => ['eq', 'gt', 'gte', 'lt', 'lte'],
     ];
 
     protected $columnMap = [

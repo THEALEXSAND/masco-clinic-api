@@ -4,14 +4,15 @@ namespace App\Filters;
 
 use App\Filters\ApiFilter;
 
-class CustomerFilter extends ApiFilter
+class MedicalHistoryFilter extends ApiFilter
 {
     protected $safeParams = [
-        'nombre' => ['eq'],
-        'apellido' => ['eq'],
-        'cedula' => ['eq', 'gt', 'lt'],
-        'direccion' => ['eq'],
-        'telefono' => ['eq', 'gt', 'lt'],
+        'petId' => ['eq'],
+        'observacion' => ['eq'],
+    ];
+
+    protected $columnMap = [
+        'petId' => 'pet_id',
     ];
 
     protected $operatorMap = [

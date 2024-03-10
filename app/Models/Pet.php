@@ -20,4 +20,14 @@ class Pet extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    /**
+     * Get the Medical History associated with the Pet
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function medicalHistory()
+    {
+        return $this->hasOne(MedicalHistory::class);
+    }
 }
