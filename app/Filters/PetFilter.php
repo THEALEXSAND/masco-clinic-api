@@ -19,12 +19,4 @@ class PetFilter extends ApiFilter
         'customerId' => 'customer_id',
         'tipoAnimal' => 'tipo_animal',
     ];
-
-    protected $operatorMap = [
-        'eq' => '=',
-        'gt' => '>',
-        'gte' => '>=',
-        'lt' => '<',
-        'lte' => '<=',
-    ];
 }

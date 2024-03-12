@@ -8,7 +8,14 @@ class ApiFilter
 {
     protected $safeParams = [];
     protected $columnMap = [];
-    protected $operatorMap = [];
+
+    protected $operatorMap = [
+        'eq' => '=',
+        'gt' => '>',
+        'gte' => '>=',
+        'lt' => '<',
+        'lte' => '<=',
+    ];
 
     public function transform(Request $req)
     {

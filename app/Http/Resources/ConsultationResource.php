@@ -16,6 +16,7 @@ class ConsultationResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'medicalHistoryId' => $this->medical_history_id,
             'descripcion' => $this->descripcion,
             'receta' => $this->receta,
             'tratamiento' => $this->tratamiento,

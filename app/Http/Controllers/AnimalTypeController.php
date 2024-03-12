@@ -28,7 +28,7 @@ class AnimalTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAnimalTypeRequest $request)
+    public function store(StoreAnimalTypeRequest $req)
     {
         //
     }
@@ -52,7 +52,7 @@ class AnimalTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAnimalTypeRequest $request, AnimalType $animalType)
+    public function update(UpdateAnimalTypeRequest $req, AnimalType $animalType)
     {
         //
     }

@@ -23,6 +23,8 @@ class PetResource extends JsonResource
             'sexo' => $this->sexo,
             'edad' => $this->edad,
             'history' => MedicalHistoryResource::make($this->whenLoaded('medicalHistory')),
+            'creadoEn' => $this->created_at,
+            'actualizadoEn' => $this->updated_at,
         ];
     }
 }
