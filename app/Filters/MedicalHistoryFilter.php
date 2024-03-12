@@ -14,12 +14,4 @@ class MedicalHistoryFilter extends ApiFilter
     protected $columnMap = [
         'petId' => 'pet_id',
     ];
-
-    protected $operatorMap = [
-        'eq' => '=',
-        'gt' => '>',
-        'gte' => '>=',
-        'lt' => '<',
-        'lte' => '<=',
-    ];
 }
