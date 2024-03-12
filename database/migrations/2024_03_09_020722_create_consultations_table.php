@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('medical_history_id');
+            $table->foreign('medical_history_id')->references('id')->on('medical_histories')->onDelete('cascade')->onUpdate('cascade');
+            $table->text('descripcion');
+            $table->text('receta');
+            $table->text('tratamiento');
+
             $table->timestamps();
         });
     }
