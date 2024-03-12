@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Customer;
+use App\Models\MedicalHistory;
 use App\Models\Pet;
 
 class CustomerSeeder extends Seeder
@@ -15,12 +16,12 @@ class CustomerSeeder extends Seeder
     {
         Customer::factory()
             ->count(15)
-            ->has(Pet::factory()->count(1)->hasMedicalHistory())
+            ->has(Pet::factory()->count(1)->has(MedicalHistory::factory()->hasConsultation(1)))
             ->create();
 
         Customer::factory()
             ->count(10)
-            ->has(Pet::factory()->count(2)->hasMedicalHistory())
+            ->has(Pet::factory()->count(2)->has(MedicalHistory::factory()->hasConsultation(3)))
             ->create();
 
         Customer::factory()
