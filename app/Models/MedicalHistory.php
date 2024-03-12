@@ -15,13 +15,13 @@ class MedicalHistory extends Model
     ];
 
     /**
-     * Get all of the Consultations for the MedicalHistory
+     * Get all of the Consultation for the MedicalHistory
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function consultations()
     {
-        return $this->hasMany(Consultations::class);
+        return $this->hasMany(Consultation::class);
     }
 
     /**
