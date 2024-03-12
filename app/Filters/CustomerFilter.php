@@ -13,12 +13,4 @@ class CustomerFilter extends ApiFilter
         'direccion' => ['eq'],
         'telefono' => ['eq', 'gt', 'lt'],
     ];
-
-    protected $operatorMap = [
-        'eq' => '=',
-        'gt' => '>',
-        'gte' => '>=',
-        'lt' => '<',
-        'lte' => '<=',
-    ];
 }
