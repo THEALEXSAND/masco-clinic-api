@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ConsultationFilter;
 use App\Models\Consultation;
 use App\Http\Requests\StoreConsultationRequest;
 use App\Http\Requests\UpdateConsultationRequest;
 use App\Http\Resources\ConsultationCollection;
+use Illuminate\Http\Request;
 
 class ConsultationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $req)
     {
-        return new ConsultationCollection(Consultation::all());
+        $filter = new ConsultationFilter();
+        $queryItems = $filter->transform($req);
+
+        if (count($queryItems) === 0) return new ConsultationCollection(Consultation::paginate());
+        else {
+            $consultations = Consultation::where($queryItems);
+            return new ConsultationCollection($consultations);
+        }
     }
 
     /**
