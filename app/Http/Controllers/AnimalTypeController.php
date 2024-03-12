@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Consultations;
-use App\Http\Requests\StoreConsultationsRequest;
-use App\Http\Requests\UpdateConsultationsRequest;
+use App\Models\AnimalType;
+use App\Http\Requests\StoreAnimalTypeRequest;
+use App\Http\Requests\UpdateAnimalTypeRequest;
+use App\Http\Resources\AnimalTypeCollection;
 
-class ConsultationsController extends Controller
+class AnimalTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return new AnimalTypeCollection(AnimalType::all());
     }
 
     /**
@@ -27,7 +28,7 @@ class ConsultationsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreConsultationsRequest $request)
+    public function store(StoreAnimalTypeRequest $request)
     {
         //
     }
@@ -35,7 +36,7 @@ class ConsultationsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Consultations $consultations)
+    public function show(AnimalType $animalType)
     {
         //
     }
@@ -43,7 +44,7 @@ class ConsultationsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Consultations $consultations)
+    public function edit(AnimalType $animalType)
     {
         //
     }
@@ -51,7 +52,7 @@ class ConsultationsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateConsultationsRequest $request, Consultations $consultations)
+    public function update(UpdateAnimalTypeRequest $request, AnimalType $animalType)
     {
         //
     }
@@ -59,7 +60,7 @@ class ConsultationsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Consultations $consultations)
+    public function destroy(AnimalType $animalType)
     {
         //
     }

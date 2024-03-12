@@ -20,11 +20,21 @@ class MedicalHistoryController extends Controller
         $filter = new MedicalHistoryFilter();
         $queryItems = $filter->transform($req);
 
-        if (count($queryItems) === 0) return new MedicalHistoryCollection(MedicalHistory::paginate());
-        else {
-            $medicalHistory = MedicalHistory::where($queryItems)->paginate();
-            return new MedicalHistoryCollection($medicalHistory->appends($req->query()));
+        $includeConsultations = $req->query('includeConsultations');
+
+        $medicalHistories = MedicalHistory::where($queryItems);
+
+        if ($includeConsultations) {
+            $medicalHistories = $medicalHistories->with('consultations');
         }
+
+        return new MedicalHistoryCollection($medicalHistories->paginate()->appends($req->query()));
+
+        // if (count($queryItems) === 0) return new MedicalHistoryCollection(MedicalHistory::paginate());
+        // else {
+        //     $medicalHistory = MedicalHistory::where($queryItems)->paginate();
+        //     return new MedicalHistoryCollection($medicalHistory->appends($req->query()));
+        // }
     }
 
     /**
