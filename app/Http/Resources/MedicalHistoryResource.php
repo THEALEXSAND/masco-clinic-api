@@ -16,8 +16,8 @@ class MedicalHistoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'pet_id' => $this->pet_id,
-            'obervacion' => $this->observacion,
+            'petId' => $this->pet_id,
+            'observacion' => $this->observacion,
             'consultations' => ConsultationResource::collection($this->whenLoaded('consultations')),
         ];
     }
