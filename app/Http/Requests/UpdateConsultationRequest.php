@@ -21,6 +21,29 @@ class UpdateConsultationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        $method = $this->method();
+
+        if ($method === 'PUT') {
+            return [
+                'medicalHistoryId' => ['required', 'integer'],
+                'descripcion' => ['required'],
+                'receta' => ['required'],
+                'tratamiento' => ['required'],
+            ];
+        } else {
+            return [
+                'medicalHistoryId' => ['sometimes', 'integer'],
+                'descripcion' => ['sometimes'],
+                'receta' => ['sometimes'],
+                'tratamiento' => ['sometimes'],
+            ];
+        }
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'medical_history_id' => $this->medicalHistoryId,
+        ]);
     }
 }
