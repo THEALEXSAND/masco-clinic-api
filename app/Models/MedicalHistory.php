@@ -11,7 +11,7 @@ class MedicalHistory extends Model
 
     protected $fillable = [
         'pet_id',
-        'observacion'
+        'antecedentes'
     ];
 
     /**

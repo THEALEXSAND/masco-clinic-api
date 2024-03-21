@@ -8,7 +8,7 @@ class MedicalHistoryFilter extends ApiFilter
 {
     protected $safeParams = [
         'petId' => ['eq'],
-        'observacion' => ['eq'],
+        'antecedentes' => ['eq'],
     ];
 
     protected $columnMap = [

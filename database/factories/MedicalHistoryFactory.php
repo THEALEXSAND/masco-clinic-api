@@ -19,7 +19,7 @@ class MedicalHistoryFactory extends Factory
     {
         return [
             'pet_id' => Pet::factory(),
-            'observacion' => $this->faker->text()
+            'antecedentes' => $this->faker->text()
         ];
     }
 }
