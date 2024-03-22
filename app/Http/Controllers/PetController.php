@@ -84,9 +84,11 @@ class PetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePetRequest $request, Pet $pet)
+    public function update(UpdatePetRequest $req, Pet $pet)
     {
-        //
+        $pet->update($req->all());
+
+        return ['message' => 'Pet updated successfully'];
     }
 
     /**

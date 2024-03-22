@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdatePetRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UpdatePetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +22,41 @@ class UpdatePetRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+        $method = $this->method();
+
+        if ($method === 'PUT') {
+            return [
+                'customerId' => ['required', 'integer', 'nullable'],
+                'nombre' => ['required'],
+                'tipoAnimal' => ['required'],
+                'raza' => ['required'],
+                'sexo' => ['required', Rule::in(['Macho', 'Hembra'])],
+                'edad' => ['required', 'integer'],
+            ];
+        } else {
+            return [
+                'customerId' => ['sometimes', 'integer'],
+                'nombre' => ['sometimes'],
+                'tipoAnimal' => ['sometimes'],
+                'raza' => ['sometimes'],
+                'sexo' => ['sometimes', Rule::in(['Macho', 'Hembra'])],
+                'edad' => ['sometimes', 'integer'],
+            ];
+        }
+    }
+
+    function prepareForValidation()
+    {
+        if ($this->customerId) {
+            $this->merge([
+                'customer_id' => $this->customerId,
+            ]);
+        }
+
+        if ($this->tipoAnimal) {
+            $this->merge([
+                'tipo_animal' => $this->tipoAnimal,
+            ]);
+        }
     }
 }
