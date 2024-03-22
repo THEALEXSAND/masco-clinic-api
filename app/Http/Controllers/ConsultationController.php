@@ -22,8 +22,8 @@ class ConsultationController extends Controller
 
         if (count($queryItems) === 0) return new ConsultationCollection(Consultation::paginate());
         else {
-            $consultations = Consultation::where($queryItems);
-            return new ConsultationCollection($consultations);
+            $consultations = Consultation::where($queryItems)->paginate();
+            return new ConsultationCollection($consultations->appends($req->query()));
         }
     }
 
