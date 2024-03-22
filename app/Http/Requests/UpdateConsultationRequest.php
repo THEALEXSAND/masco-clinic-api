@@ -26,6 +26,7 @@ class UpdateConsultationRequest extends FormRequest
         if ($method === 'PUT') {
             return [
                 'medicalHistoryId' => ['required', 'integer'],
+                'motivo' => ['required'],
                 'descripcion' => ['required'],
                 'receta' => ['required'],
                 'tratamiento' => ['required'],
@@ -33,6 +34,7 @@ class UpdateConsultationRequest extends FormRequest
         } else {
             return [
                 'medicalHistoryId' => ['sometimes', 'integer'],
+                'motivo' => ['sometimes'],
                 'descripcion' => ['sometimes'],
                 'receta' => ['sometimes'],
                 'tratamiento' => ['sometimes'],
@@ -42,8 +44,10 @@ class UpdateConsultationRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this->merge([
-            'medical_history_id' => $this->medicalHistoryId,
-        ]);
+        if ($this->medicalHistoryId) {
+            $this->merge([
+                'medical_history_id' => $this->medicalHistoryId,
+            ]);
+        }
     }
 }

@@ -11,6 +11,7 @@ class Consultation extends Model
 
     protected $fillable = [
         'medical_history_id',
+        'motivo',
         'descripcion',
         'tratamiento',
         'receta',

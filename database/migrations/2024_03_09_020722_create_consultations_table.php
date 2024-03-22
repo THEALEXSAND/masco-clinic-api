@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('medical_history_id');
             $table->foreign('medical_history_id')->references('id')->on('medical_histories')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('motivo', 100);
             $table->text('descripcion');
             $table->text('receta');
             $table->text('tratamiento');

@@ -23,6 +23,7 @@ class StoreConsultationRequest extends FormRequest
     {
         return [
             'medicalHistoryId' => ['required', 'integer'],
+            'motivo' => ['required'],
             'descripcion' => ['required'],
             'receta' => ['required'],
             'tratamiento' => ['required'],
