@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAnimalTypeRequest extends FormRequest
+class UpdateAnimalBreedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,23 @@ class UpdateAnimalTypeRequest extends FormRequest
 
         if ($method === 'PUT') {
             return [
-                'tipo' => ['required', 'unique:animal_types']
+                'animalTypeId' => ['required', 'integer'],
+                'raza' => ['required', 'unique:anime_breeds']
             ];
         } else {
             return [
-                'tipo' => ['sometimes', 'unique:animal_types']
+                'animalTypeId' => ['sometimes', 'integer'],
+                'raza' => ['sometimes', 'unique:animal_breeds']
             ];
+        }
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->animalTypeId) {
+            $this->merge([
+                'animal_type_id' => $this->animalTypeId
+            ]);
         }
     }
 }

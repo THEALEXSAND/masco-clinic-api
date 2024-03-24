@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('animal_types', function (Blueprint $table) {
+        Schema::create('animal_breeds', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo')->unique();
+            $table->unsignedBigInteger('animal_type_id');
+            $table->foreign('animal_type_id')->references('id')->on('animal_types')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('raza');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('animal_types');
+        Schema::dropIfExists('animal_breeds');
     }
 };

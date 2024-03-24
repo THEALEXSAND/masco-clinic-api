@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnimalBreedController;
 use App\Http\Controllers\AnimalTypeController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\CustomerController;
@@ -29,6 +30,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function
     Route::apiResource('pets', PetController::class);
     Route::post('pets/bulk', ['uses' => 'PetController@bulkStore']);
     Route::apiResource('animal-types', AnimalTypeController::class);
+    Route::apiResource('animal-breeds', AnimalBreedController::class);
     Route::apiResource('medical-histories', MedicalHistoryController::class);
     Route::apiResource('consultations', ConsultationController::class);
 });
