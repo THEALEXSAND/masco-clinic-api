@@ -7,6 +7,7 @@ use App\Models\Consultation;
 use App\Http\Requests\StoreConsultationRequest;
 use App\Http\Requests\UpdateConsultationRequest;
 use App\Http\Resources\ConsultationCollection;
+use App\Http\Resources\ConsultationResource;
 use Illuminate\Http\Request;
 
 class ConsultationController extends Controller
@@ -21,8 +22,8 @@ class ConsultationController extends Controller
 
         if (count($queryItems) === 0) return new ConsultationCollection(Consultation::paginate());
         else {
-            $consultations = Consultation::where($queryItems);
-            return new ConsultationCollection($consultations);
+            $consultations = Consultation::where($queryItems)->paginate();
+            return new ConsultationCollection($consultations->appends($req->query()));
         }
     }
 
@@ -37,23 +38,23 @@ class ConsultationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreConsultationRequest $request)
+    public function store(StoreConsultationRequest $req)
     {
-        //
+        return new ConsultationResource(Consultation::create($req->all()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Consultation $consultations)
+    public function show(Consultation $consultation)
     {
-        //
+        return new ConsultationResource($consultation);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Consultation $consultations)
+    public function edit(Consultation $consultation)
     {
         //
     }
@@ -61,16 +62,20 @@ class ConsultationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateConsultationRequest $request, Consultation $consultations)
+    public function update(UpdateConsultationRequest $req, Consultation $consultation)
     {
-        //
+        $consultation->update($req->all());
+
+        return ['message' => 'Consultation updated successfully'];
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Consultation $consultations)
+    public function destroy(Consultation $consultation)
     {
-        //
+        $consultation->delete();
+
+        return ['message' => 'Consultation updated successfully'];
     }
 }

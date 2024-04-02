@@ -6,6 +6,7 @@ class ConsultationFilter extends ApiFilter
 {
     protected $safeParams = [
         'medicalHistoryId' => ['eq'],
+        'motivo' => ['eq'],
         'description' => ['eq'],
         'receta' => ['eq'],
         'tratamiento' => ['eq'],

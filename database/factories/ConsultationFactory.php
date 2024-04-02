@@ -19,6 +19,7 @@ class ConsultationFactory extends Factory
     {
         return [
             'medical_history_id' => Pet::factory(),
+            'motivo' => $this->faker->text(50),
             'descripcion' => $this->faker->text(),
             'receta' => $this->faker->text(),
             'tratamiento' => $this->faker->text(),

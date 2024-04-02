@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('animal_types', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
-            $table->string('raza');
+            $table->string('tipo')->unique();
             $table->timestamps();
         });
     }

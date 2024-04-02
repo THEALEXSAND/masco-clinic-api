@@ -23,7 +23,7 @@ class StoreMedicalHistoryRequest extends FormRequest
     {
         return [
             'petId' => ['required', 'integer'],
-            'observacion' => ['nullable'],
+            'antecedentes' => ['nullable'],
         ];
     }
 

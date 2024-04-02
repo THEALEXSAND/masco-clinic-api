@@ -29,12 +29,6 @@ class MedicalHistoryController extends Controller
         }
 
         return new MedicalHistoryCollection($medicalHistories->paginate()->appends($req->query()));
-
-        // if (count($queryItems) === 0) return new MedicalHistoryCollection(MedicalHistory::paginate());
-        // else {
-        //     $medicalHistory = MedicalHistory::where($queryItems)->paginate();
-        //     return new MedicalHistoryCollection($medicalHistory->appends($req->query()));
-        // }
     }
 
     /**
@@ -58,6 +52,10 @@ class MedicalHistoryController extends Controller
      */
     public function show(MedicalHistory $medicalHistory)
     {
+        $includeConsultations = request()->query('includeConsultations');
+
+        if ($includeConsultations) return new MedicalHistoryResource($medicalHistory->loadMissing('consultations'));
+
         return new MedicalHistoryResource($medicalHistory);
     }
 

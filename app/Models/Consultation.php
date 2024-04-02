@@ -9,7 +9,13 @@ class Consultation extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'medical_history_id',
+        'motivo',
+        'descripcion',
+        'tratamiento',
+        'receta',
+    ];
 
     /**
      * Get the Medical History that owns the Consultation

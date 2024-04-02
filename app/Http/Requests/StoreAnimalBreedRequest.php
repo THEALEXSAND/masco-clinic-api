@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateConsultationRequest extends FormRequest
+class StoreAnimalBreedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class UpdateConsultationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'animalTypeId' => ['required', 'integer'],
+            'raza' => ['required', 'unique:animal_breeds']
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'animal_type_id' => $this->animalTypeId
+        ]);
     }
 }

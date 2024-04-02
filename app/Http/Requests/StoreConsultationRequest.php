@@ -11,7 +11,7 @@ class StoreConsultationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,18 @@ class StoreConsultationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'medicalHistoryId' => ['required', 'integer'],
+            'motivo' => ['required'],
+            'descripcion' => ['required'],
+            'receta' => ['required'],
+            'tratamiento' => ['required'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'medical_history_id' => $this->medicalHistoryId,
+        ]);
     }
 }

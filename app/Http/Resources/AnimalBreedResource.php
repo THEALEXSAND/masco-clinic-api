@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MedicalHistoryResource extends JsonResource
+class AnimalBreedResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,8 @@ class MedicalHistoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'petId' => $this->pet_id,
-            'antecedentes' => $this->antecedentes,
-            'consultations' => ConsultationResource::collection($this->whenLoaded('consultations')),
+            'animalTypeId' => $this->animal_type_id,
+            'raza' => $this->raza,
         ];
     }
 }

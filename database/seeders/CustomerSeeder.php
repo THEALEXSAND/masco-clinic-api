@@ -16,12 +16,12 @@ class CustomerSeeder extends Seeder
     {
         Customer::factory()
             ->count(15)
-            ->has(Pet::factory()->count(1)->has(MedicalHistory::factory()->hasConsultation(1)))
+            ->has(Pet::factory()->count(1)->has(MedicalHistory::factory()->hasConsultations(1)))
             ->create();
 
         Customer::factory()
             ->count(10)
-            ->has(Pet::factory()->count(2)->has(MedicalHistory::factory()->hasConsultation(3)))
+            ->has(Pet::factory()->count(2)->has(MedicalHistory::factory()->hasConsultations(3)))
             ->create();
 
         Customer::factory()

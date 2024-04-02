@@ -2,19 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\AnimalTypeFilter;
 use App\Models\AnimalType;
 use App\Http\Requests\StoreAnimalTypeRequest;
 use App\Http\Requests\UpdateAnimalTypeRequest;
 use App\Http\Resources\AnimalTypeCollection;
+use App\Http\Resources\AnimalTypeResource;
+use Illuminate\Http\Request;
 
 class AnimalTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $req)
     {
-        return new AnimalTypeCollection(AnimalType::all());
+        $filter = new AnimalTypeFilter();
+        $queryItems = $filter->transform($req);
+
+        $includeBreeds = $req->query('includeBreeds');
+
+        $animalTypes = AnimalType::where($queryItems);
+
+        if ($includeBreeds) $animalTypes = $animalTypes->with('breeds');
+
+        return new AnimalTypeCollection($animalTypes->paginate()->appends($req->query()));
     }
 
     /**
@@ -30,7 +42,7 @@ class AnimalTypeController extends Controller
      */
     public function store(StoreAnimalTypeRequest $req)
     {
-        //
+        return new AnimalTypeResource(AnimalType::create($req->all()));
     }
 
     /**
@@ -38,7 +50,11 @@ class AnimalTypeController extends Controller
      */
     public function show(AnimalType $animalType)
     {
-        //
+        $includeBreeds = request()->query('includeBreeds');
+
+        if ($includeBreeds) return new AnimalTypeResource($animalType->loadMissing('breeds'));
+
+        return new AnimalTypeResource($animalType);
     }
 
     /**
@@ -54,7 +70,9 @@ class AnimalTypeController extends Controller
      */
     public function update(UpdateAnimalTypeRequest $req, AnimalType $animalType)
     {
-        //
+        $animalType->update($req->all());
+
+        return ['message' => 'Animal type updated successfully'];
     }
 
     /**
@@ -62,6 +80,8 @@ class AnimalTypeController extends Controller
      */
     public function destroy(AnimalType $animalType)
     {
-        //
+        $animalType->delete();
+
+        return ['message' => 'Animal type deleted successfully'];
     }
 }
