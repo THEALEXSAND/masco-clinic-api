@@ -20,10 +20,18 @@ class ConsultationController extends Controller
         $filter = new ConsultationFilter();
         $queryItems = $filter->transform($req);
 
-        if (count($queryItems) === 0) return new ConsultationCollection(Consultation::paginate());
-        else {
-            $consultations = Consultation::where($queryItems)->paginate();
-            return new ConsultationCollection($consultations->appends($req->query()));
+        $paginate = $req->query('paginate');
+
+        if (count($queryItems) === 0) {
+            $consultations =  $paginate
+                ? new ConsultationCollection(Consultation::paginate())
+                : new ConsultationCollection(Consultation::all());
+
+            return $consultations;
+        } else {
+            $consultations = $paginate ? Consultation::where($queryItems)->paginate()->appends($req->query()) : Consultation::where($queryItems)->get();
+
+            return new ConsultationCollection($consultations);
         }
     }
 
