@@ -23,12 +23,15 @@ class PetController extends Controller
         $queryItems = $filter->transform($req);
 
         $includeHistory = $req->query('includeHistory');
+        $paginate = $req->query('paginate');
 
         $pets = Pet::where($queryItems);
 
         if ($includeHistory) {
             $pets = $pets->with('medicalHistory');
         }
+
+        if (!$paginate) return new PetCollection($pets->get());
 
         return new PetCollection($pets->paginate()->appends($req->query()));
     }
@@ -50,10 +53,10 @@ class PetController extends Controller
             $bulk = collect($req->all())->map(function ($arr, $key) {
                 return Arr::except($arr, ['customerId', 'tipoAnimal']);
             });
-    
+
             Pet::insert($bulk->toArray());
-    
-            return response()->json(['message' => 'Pets created successfully'], 200);
+
+            return response()->json(['message' => 'Pets created successfully']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error creating pets: ' . $e->getMessage()], 500);
         }
