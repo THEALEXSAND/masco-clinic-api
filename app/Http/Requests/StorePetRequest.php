@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePetRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StorePetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,20 @@ class StorePetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'customerId' => ['required', 'integer'],
+            'nombre' => ['required'],
+            'tipoAnimal' => ['required'],
+            'raza' => ['required'],
+            'sexo' => ['required', Rule::in(['Macho', 'Hembra'])],
+            'edad' => ['required', 'numeric'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'customer_id' => $this->customerId,
+            'tipo_animal' => $this->tipoAnimal
+        ]);
     }
 }

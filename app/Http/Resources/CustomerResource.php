@@ -21,6 +21,8 @@ class CustomerResource extends JsonResource
             'cedula' => $this->cedula,
             'direccion' => $this->direccion,
             'telefono' => $this->telefono,
+            'creadoEn' => $this->created_at,
+            'actualizadoEn' => $this->updated_at,
             'pets' => PetResource::collection($this->whenLoaded('pets')),
         ];
     }

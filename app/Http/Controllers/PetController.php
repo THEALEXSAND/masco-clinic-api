@@ -61,14 +61,13 @@ class PetController extends Controller
             return response()->json(['error' => 'Error creating pets: ' . $e->getMessage()], 500);
         }
     }
-     
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePetRequest $request)
+    public function store(StorePetRequest $req)
     {
-        //
+        return new PetResource(Pet::create($req->all()));
     }
 
     /**
