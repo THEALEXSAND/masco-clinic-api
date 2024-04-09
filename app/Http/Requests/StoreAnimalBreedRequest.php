@@ -23,7 +23,7 @@ class StoreAnimalBreedRequest extends FormRequest
     {
         return [
             'animalTypeId' => ['required', 'integer'],
-            'raza' => ['required', 'unique:animal_breeds']
+            'raza' => ['required']
         ];
     }
 
