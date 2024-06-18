@@ -6,6 +6,7 @@ use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\PetController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function
     Route::apiResource('animal-breeds', AnimalBreedController::class);
     Route::apiResource('medical-histories', MedicalHistoryController::class);
     Route::apiResource('consultations', ConsultationController::class);
+    Route::apiResource('recipes', RecipeController::class);
 });
