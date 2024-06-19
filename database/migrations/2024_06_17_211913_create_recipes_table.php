@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('recipes', function (Blueprint $table) {
-            $table->id();
+            // $table->id();
             $table->unsignedBigInteger('consulta_id'); // relación futura con consultations
             $table->unsignedBigInteger('medicamento_id'); // relación futura con medicines
             $table->integer('cantidad');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Relaciones (descomentar cuando se creen las tablas relacionadas)
-            $table->foreign('consulta_id')->references('id')->on('consultations')->onDelete('cascade');
+            // $table->foreign('consulta_id')->references('id')->on('consultations')->onDelete('cascade');
             // $table->foreign('medicamento_id')->references('id')->on('medicines')->onDelete('cascade');
         });
     }

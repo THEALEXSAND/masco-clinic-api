@@ -19,7 +19,7 @@ class RecipeCollection extends ResourceCollection
                 return [
                     // 'id' => $recipe->id,
                     'consulta_id' => $recipe->consulta_id,
-                    // 'medicamento_id' => $recipe->medicamento_id,
+                    'medicamento_id' => $recipe->medicamento_id,
                     'cantidad' => $recipe->cantidad,
                     'indicaciones' => $recipe->indicaciones,
                     'created_at' => $recipe->created_at->toDateTimeString(),

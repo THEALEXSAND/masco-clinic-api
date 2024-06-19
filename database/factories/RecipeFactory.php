@@ -21,7 +21,8 @@ class RecipeFactory extends Factory
     {
         return [
             'consulta_id' => Consultation::factory(),
-            'medicamento_id' => Medicamento::factory(),
+            'medicamento_id' => "crisis", 
+            // Medicamento::factory(),
             'cantidad' => $this->faker->numberBetween(1, 10),
             'indicaciones' => $this->faker->sentence()
         ];

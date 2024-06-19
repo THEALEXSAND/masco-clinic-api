@@ -28,5 +28,13 @@ class CustomerSeeder extends Seeder
             ->count(5)
             ->has(Pet::factory()->count(3))
             ->create();
+
+            // factory con recipe
+
+            Customer::factory()
+            ->count(10)
+            ->has(Pet::factory()->count(2)->has(MedicalHistory::factory()->hasConsultations(3)))
+            ->create();
+
     }
 }
