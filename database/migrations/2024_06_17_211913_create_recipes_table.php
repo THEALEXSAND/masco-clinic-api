@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('recipes', function (Blueprint $table) {
-            // $table->id();
-            $table->unsignedBigInteger('consulta_id'); // relación futura con consultations
-            $table->unsignedBigInteger('medicamento_id'); // relación futura con medicines
+            $table->id();
+            $table->unsignedBigInteger('consulta_id'); // relación con consultations
+            $table->unsignedBigInteger('medicamento_id'); // relación con medicines
             $table->integer('cantidad');
             $table->text('indicaciones');
             $table->timestamps();
 
-            // Relaciones (descomentar cuando se creen las tablas relacionadas)
-            // $table->foreign('consulta_id')->references('id')->on('consultations')->onDelete('cascade');
+            // Relaciones
+            $table->foreign('consulta_id')->references('id')->on('consultations')->onDelete('cascade')->onUpdate('cascade');
             // $table->foreign('medicamento_id')->references('id')->on('medicines')->onDelete('cascade');
         });
     }

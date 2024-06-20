@@ -21,6 +21,7 @@ class ConsultationResource extends JsonResource
             'descripcion' => $this->descripcion,
             'receta' => $this->receta,
             'tratamiento' => $this->tratamiento,
+            'diagnostico' => $this->diagnostico,
             'creadoEn' => $this->created_at,
             'actualizadoEn' => $this->updated_at,
         ];

@@ -5,26 +5,19 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Recipe;
 use App\Models\Consultation;
-use App\Models\Medicamento;
+use App\Models\Medicine;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Recipe>
- */
 class RecipeFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Recipe::class;
+
     public function definition(): array
     {
         return [
             'consulta_id' => Consultation::factory(),
-            'medicamento_id' => "crisis", 
-            // Medicamento::factory(),
+            'medicamento_id' => Medicine::factory(),
             'cantidad' => $this->faker->numberBetween(1, 10),
-            'indicaciones' => $this->faker->sentence()
+            'indicaciones' => $this->faker->text(),
         ];
     }
 }

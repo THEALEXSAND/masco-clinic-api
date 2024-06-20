@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->text('receta');
             $table->text('tratamiento');
+            $table->text('diagnostico');
 
             $table->timestamps();
         });

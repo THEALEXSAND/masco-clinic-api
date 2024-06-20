@@ -13,8 +13,9 @@ class Consultation extends Model
         'medical_history_id',
         'motivo',
         'descripcion',
-        'tratamiento',
         'receta',
+        'tratamiento',
+        'diagnostico'
     ];
 
     /**
@@ -22,8 +23,14 @@ class Consultation extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function recipes()
+    {
+        return $this->hasMany(Recipe::class, 'consulta_id');
+    }
+
     public function medicalHistory()
     {
         return $this->belongsTo(MedicalHistory::class);
     }
+
 }

@@ -35,4 +35,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function
     Route::apiResource('medical-histories', MedicalHistoryController::class);
     Route::apiResource('consultations', ConsultationController::class);
     Route::apiResource('recipes', RecipeController::class);
+    Route::apiResource('medicines', MedicineController::class);
 });

@@ -16,8 +16,10 @@ class RecipeResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'consulta_id' => $this->consulta_id,
+            'medicamento_id' => $this->medicamento_id,
             'cantidad' => $this->cantidad,
-            'indicacion' => $this->indicacion,
+            'indicaciones' => $this->indicaciones,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
             // Aquí puedes incluir relaciones si las necesitas, por ejemplo:

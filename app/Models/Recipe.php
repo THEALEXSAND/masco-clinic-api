@@ -23,7 +23,7 @@ class Recipe extends Model
      */
     public function consultation()
     {
-        return $this->belongsTo(Consultation::class, 'consulta_id');
+        return $this->belongsTo(Consultation::class);
     }
 
     /**

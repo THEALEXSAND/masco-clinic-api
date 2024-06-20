@@ -10,6 +10,7 @@ class ConsultationFilter extends ApiFilter
         'description' => ['eq'],
         'receta' => ['eq'],
         'tratamiento' => ['eq'],
+        'diagnostico' => ['eq'],
     ];
 
     protected $columnMap = [
