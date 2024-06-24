@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateMedicineRequest;
 use App\Http\Resources\MedicineCollection;
 use App\Http\Resources\MedicineResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MedicineController extends Controller
 {
@@ -16,18 +17,59 @@ class MedicineController extends Controller
      */
     public function index(Request $request)
     {
-        $medicines = Medicine::paginate()->appends($request->query());
-        return new MedicineCollection($medicines);
+        $page = $request->query('page', 1);
+        $perPage = $request->query('per_page', 15);
+        $offset = ($page - 1) * $perPage;
+
+        // Realiza una consulta SQL nativa para obtener las medicinas con paginación
+        $medicines = DB::select('SELECT * FROM medicines LIMIT :limit OFFSET :offset', [
+            'limit' => $perPage,
+            'offset' => $offset,
+        ]);
+
+        // Realiza una consulta SQL nativa para obtener el total de medicinas
+        $total = DB::select('SELECT COUNT(*) as count FROM medicines')[0]->count;
+
+        return response()->json([
+            'data' => $medicines,
+            'current_page' => (int) $page,
+            'per_page' => (int) $perPage,
+            'total' => $total,
+            'last_page' => (int) ceil($total / $perPage),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMedicineRequest $request)
+    public function store(Request $request)
     {
-        $medicine = Medicine::create($request->validated());
-        return new MedicineResource($medicine);
+        $validatedData = $request->validate([
+            'nombre_generico' => 'required|string|max:255',
+            'nombre_comercial' => 'required|string|max:255',
+        ]);
+
+        $nombreGenerico = $validatedData['nombre_generico'];
+        $nombreComercial = $validatedData['nombre_comercial'];
+
+        // Realiza una consulta SQL nativa para insertar una nueva medicina
+        DB::insert('INSERT INTO medicines (nombre_generico, nombre_comercial, created_at, updated_at) VALUES (?, ?, NOW(), NOW())', [
+            $nombreGenerico,
+            $nombreComercial,
+        ]);
+
+        // Obtiene el ID del último registro insertado
+        $id = DB::getPdo()->lastInsertId();
+
+        // Realiza una consulta SQL nativa para obtener la medicina recién creada
+        $medicine = DB::select('SELECT * FROM medicines WHERE id = ?', [$id])[0];
+
+        return response()->json([
+            'data' => $medicine,
+            'message' => 'Medicine created successfully',
+        ], 201);
     }
+
 
     /**
      * Display the specified resource.

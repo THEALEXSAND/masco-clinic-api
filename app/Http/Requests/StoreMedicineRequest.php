@@ -11,7 +11,7 @@ class StoreMedicineRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreMedicineRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre_generico' => ['required', 'string', 'max:255'],
+            'nombre_comercial' => ['required', 'string', 'max:255'],
         ];
     }
 }

@@ -21,32 +21,11 @@ class UpdateRecipeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $method = $this->method();
-
-        if ($method === 'PUT') {
-            return [
-                'consultaId' => ['required', 'integer'],
-                'medicacionId' => ['required', 'integer'],
-                'cantidad' => ['required', 'integer'],
-                'indicacion' => ['required', 'string'],
-            ];
-        } else {
-            return [
-                'consultaId' => ['sometimes', 'integer'],
-                'medicacionId' => ['sometimes', 'integer'],
-                'cantidad' => ['sometimes', 'integer'],
-                'indicacion' => ['sometimes', 'string'],
-            ];
-        }
-    }
-
-    protected function prepareForValidation()
-    {
-        if ($this->consultaId || $this->medicacionId) {
-            $this->merge([
-                'consulta_id' => $this->consultaId,
-                'medicacion_id' => $this->medicacionId,
-            ]);
-        }
+        return [
+            'consulta_id' => ['required', 'exists:consultations,id'],
+            'medicamento_id' => ['required', 'exists:medicines,id'],
+            'cantidad' => ['required', 'integer'],
+            'indicaciones' => ['required', 'string'],
+        ];
     }
 }

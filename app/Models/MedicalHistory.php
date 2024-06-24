@@ -19,18 +19,18 @@ class MedicalHistory extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function pets()
+    {
+        return $this->belongsTo(Pet::class);
+    }
+
     public function consultations()
     {
         return $this->hasMany(Consultation::class);
     }
-
-    /**
-     * Get the Pet that owns the Medical History
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function pets()
+    
+    public function vaccineRecords()
     {
-        return $this->belongsTo(Pet::class);
+        return $this->hasMany(VaccineRecord::class, 'medical_history_id');
     }
 }
