@@ -21,6 +21,7 @@ class MedicalHistoryController extends Controller
         $queryItems = $filter->transform($req);
 
         $includeConsultations = $req->query('includeConsultations');
+        $includeVaccines = $req->query('includeVaccines');
 
         $medicalHistories = MedicalHistory::where($queryItems);
 
@@ -28,15 +29,11 @@ class MedicalHistoryController extends Controller
             $medicalHistories = $medicalHistories->with('consultations');
         }
 
-        return new MedicalHistoryCollection($medicalHistories->paginate()->appends($req->query()));
-    }
+        if ($includeVaccines) {
+            $medicalHistories = $medicalHistories->with('vaccineRecords');
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return new MedicalHistoryCollection($medicalHistories->paginate()->appends($req->query()));
     }
 
     /**
@@ -53,18 +50,17 @@ class MedicalHistoryController extends Controller
     public function show(MedicalHistory $medicalHistory)
     {
         $includeConsultations = request()->query('includeConsultations');
+        $includeVaccines = request()->query('includeVaccines');
 
-        if ($includeConsultations) return new MedicalHistoryResource($medicalHistory->loadMissing('consultations'));
+        if ($includeConsultations) {
+            $medicalHistory->loadMissing('consultations');
+        }
+
+        if ($includeVaccines) {
+            $medicalHistory->loadMissing('vaccineRecords');
+        }
 
         return new MedicalHistoryResource($medicalHistory);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MedicalHistory $medicalHistory)
-    {
-        //
     }
 
     /**

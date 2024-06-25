@@ -7,6 +7,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\VaccineRecordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+
 Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function () {
     Route::apiResource('customers', CustomerController::class);
     Route::apiResource('pets', PetController::class);
@@ -36,4 +39,5 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function
     Route::apiResource('consultations', ConsultationController::class);
     Route::apiResource('recipes', RecipeController::class);
     Route::apiResource('medicines', MedicineController::class);
+    Route::apiResource('vaccines', VaccineRecordController::class);
 });

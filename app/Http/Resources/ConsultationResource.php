@@ -24,6 +24,7 @@ class ConsultationResource extends JsonResource
             'diagnostico' => $this->diagnostico,
             'creadoEn' => $this->created_at,
             'actualizadoEn' => $this->updated_at,
+            'recipes' => RecipeResource::collection($this->whenLoaded('recipes')),
         ];
     }
 }

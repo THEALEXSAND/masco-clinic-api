@@ -21,10 +21,16 @@ class Recipe extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function consultation()
-    {
-        return $this->belongsTo(Consultation::class);
-    }
+   // Recipe.php
+public function medicine()
+{
+    return $this->belongsTo(Medicine::class, 'medicamento_id');
+}
+
+public function consultation()
+{
+    return $this->belongsTo(Consultation::class, 'consulta_id');
+}
 
     /**
      * Get the medication that is part of the recipe.

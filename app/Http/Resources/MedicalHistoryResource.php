@@ -21,6 +21,7 @@ class MedicalHistoryResource extends JsonResource
             'creadoEn' => $this->created_at,
             'actualizadoEn' => $this->updated_at,
             'consultations' => ConsultationResource::collection($this->whenLoaded('consultations')),
+            'vaccineRecords' => VaccineRecordResource::collection($this->whenLoaded('vaccineRecords')),
         ];
     }
 }

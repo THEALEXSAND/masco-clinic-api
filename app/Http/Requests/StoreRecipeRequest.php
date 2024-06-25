@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRecipeRequest extends FormRequest
+class StoreRecipeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,32 +21,11 @@ class UpdateRecipeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $method = $this->method();
-
-        if ($method === 'PUT') {
-            return [
-                'consulta_id' => ['required', 'integer'],
-                'medicacion_id' => ['required', 'integer'],
-                'cantidad' => ['required', 'integer'],
-                'indicacion' => ['required', 'string'],
-            ];
-        } else {
-            return [
-                'consulta_id' => ['sometimes', 'integer'],
-                'medicacion_id' => ['sometimes', 'integer'],
-                'cantidad' => ['sometimes', 'integer'],
-                'indicacion' => ['sometimes', 'string'],
-            ];
-        }
-    }
-
-    protected function prepareForValidation()
-    {
-        if ($this->consultationId || $this->medicineId) {
-            $this->merge([
-                'consulta_id' => $this->consultationId,
-                'medicacion_id' => $this->medicineId,
-            ]);
-        }
+        return [
+            'consulta_id' => ['required', 'exists:consultations,id'],
+            'medicamento_id' => ['required', 'exists:medicines,id'],
+            'cantidad' => ['required', 'integer'],
+            'indicaciones' => ['required', 'string'],
+        ];
     }
 }
