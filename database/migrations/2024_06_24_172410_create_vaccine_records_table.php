@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('vaccine_records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('medical_history_id');
-            $table->foreign('medical_history_id')->references('id')->on('medical_histories')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('historia_medica_id');
+            $table->foreign('historia_medica_id')->references('id')->on('medical_histories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('nombre_vacuna');
             $table->date('fecha_aplicacion');
             $table->timestamps();

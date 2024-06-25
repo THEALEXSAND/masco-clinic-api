@@ -17,6 +17,6 @@ class VaccineRecord extends Model
 
     public function medicalHistory()
     {
-        return $this->belongsTo(MedicalHistory::class, 'historia_medica_id');
+        return $this->belongsTo(MedicalHistory::class);
     }
 }

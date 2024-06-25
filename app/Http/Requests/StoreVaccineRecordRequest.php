@@ -6,17 +6,37 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreVaccineRecordRequest extends FormRequest
 {
-    public function authorize(): bool
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
     {
         return true;
     }
 
-    public function rules(): array
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
     {
         return [
-            'historia_medica_id' => 'required|exists:medical_histories,id',
-            'nombre_vacuna' => 'required|string',
-            'fecha_aplicacion' => 'required|date',
+            'historia_medica_id' => ['required', 'integer', 'exists:medical_histories,id'],
+            'nombre_vacuna' => ['required'],
+            'fecha_aplicacion' => ['required']
         ];
     }
+
+    /**
+     * Prepare the data for validation.
+     */
+    // protected function prepareForValidation()
+    // {
+    //     $this->merge([
+    //         'historia_medica_id' => $this->historia_medica_id,
+    //     ]);
+    // }
 }
