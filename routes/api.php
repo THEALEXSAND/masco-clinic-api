@@ -10,6 +10,7 @@ use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\VaccineRecordController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,9 +42,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers'], function
     Route::apiResource('recipes', RecipeController::class);
     Route::apiResource('medicines', MedicineController::class);
     Route::apiResource('vaccines', VaccineRecordController::class);
-    Route::apiResource('user_types', UserTypeController::class);
+    Route::apiResource('user-types', UserTypeController::class);
     Route::apiResource('users', UserController::class);
-
-    
-
+    Route::apiResource('appointments', AppointmentController::class);
 });

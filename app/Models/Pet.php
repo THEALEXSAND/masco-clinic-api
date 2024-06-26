@@ -37,4 +37,9 @@ class Pet extends Model
     {
         return $this->hasOne(MedicalHistory::class);
     }
+
+    public function citas()
+    {
+        return $this->hasMany(Appointment::class, 'mascota_id');
+    }
 }

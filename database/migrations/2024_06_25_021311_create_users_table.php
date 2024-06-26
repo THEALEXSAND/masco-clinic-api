@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('correo')->unique();
             $table->string('contrasena');
-            $table->timestamp('creado_en')->nullable();
-            $table->timestamp('actualizado_en')->nullable();
+            $table->timestamps();
 
             $table->foreign('tipo_usuario_id')->references('id')->on('user_types')->onDelete('cascade');
         });
