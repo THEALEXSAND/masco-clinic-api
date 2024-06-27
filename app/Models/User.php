@@ -22,13 +22,17 @@ class User extends Authenticatable
         'contrasena',
     ];
 
-    protected $dates = [
-        'creado_en',
-        'actualizado_en',
-    ];
+    // protected $dates = [
+    //     'creado_en',
+    //     'actualizado_en',
+    // ];
 
     public function userType()
     {
         return $this->belongsTo(UserType::class, 'tipo_usuario_id');
+    }
+    public function citas()
+    {
+        return $this->hasMany(Appointment::class, 'usuario_cedula', 'cedula');
     }
 }

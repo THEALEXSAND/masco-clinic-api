@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class AppointmentResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'fecha' => $this->fecha,
+            'hora' => $this->hora,
+            'mascota_id' => $this->mascota_id,
+            'usuario_cedula' => $this->usuario_cedula,
+            'asunto' => $this->asunto,
+            'creado_en' => $this->creado_en,
+            'actualizado_en' => $this->actualizado_en,
+            'mascota' => new PetResource($this->whenLoaded('mascota')),
+            'usuario' => new UserResource($this->whenLoaded('usuario')),
+        ];
+    }
+}
