@@ -13,8 +13,8 @@ class UserResource extends JsonResource
             'tipo_usuario_id' => $this->tipo_usuario_id,
             'nombre' => $this->nombre,
             'correo' => $this->correo,
-            'creado_en' => $this->creado_en,
-            'actualizado_en' => $this->actualizado_en,
+            'creado_en' => $this->created_at,
+            'actualizado_en' => $this->updated_at,
             'tipo_usuario' => new UserTypeResource($this->whenLoaded('userType')),
         ];
     }

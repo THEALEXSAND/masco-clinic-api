@@ -20,8 +20,8 @@ class AppointmentResource extends JsonResource
             'mascota_id' => $this->mascota_id,
             'usuario_cedula' => $this->usuario_cedula,
             'asunto' => $this->asunto,
-            'creado_en' => $this->creado_en,
-            'actualizado_en' => $this->actualizado_en,
+            'creado_en' => $this->created_at,
+            'actualizado_en' => $this->updated_at,
             'mascota' => new PetResource($this->whenLoaded('mascota')),
             'usuario' => new UserResource($this->whenLoaded('usuario')),
         ];
