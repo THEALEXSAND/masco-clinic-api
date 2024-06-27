@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\UserType;
 
 class UserTypeSeeder extends Seeder
 {
@@ -12,6 +12,6 @@ class UserTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        UserType::factory()->count(3)->create();
     }
 }

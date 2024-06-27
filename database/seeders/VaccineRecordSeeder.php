@@ -9,11 +9,10 @@ class VaccineRecordSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        VaccineRecord::factory()->count(10)->create();
+        // Puedes ajustar el número de registros a crear según tus necesidades
+        VaccineRecord::factory()->count(50)->create();
     }
 }

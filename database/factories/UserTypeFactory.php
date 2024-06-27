@@ -11,8 +11,11 @@ class UserTypeFactory extends Factory
 
     public function definition()
     {
+        static $userTypes = ['veterinario', 'recepcionista', 'admin'];
+        static $index = 0;
+
         return [
-            'nombre' => $this->faker->unique()->word,
+            'nombre' => $userTypes[$index++ % count($userTypes)],
         ];
     }
 }
