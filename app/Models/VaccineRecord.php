@@ -10,7 +10,7 @@ class VaccineRecord extends Model
     use HasFactory;
 
     protected $fillable = [
-        'medical_history_id',
+        'historia_medica_id',
         'nombre_vacuna',
         'fecha_aplicacion',
     ];
