@@ -16,8 +16,20 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = Appointment::with(['mascota', 'usuario'])->paginate()->appends($request->query());
-        return new AppointmentCollection($appointments);
+        $includePets = $request->query('includePets');
+        $includeUser = $request->query('includeUser');
+
+        $appointments = Appointment::query();
+
+        if ($includePets) {
+            $appointments->with('mascota');
+        }
+
+        if ($includeUser) {
+            $appointments->with('usuario');
+        }
+
+        return new AppointmentCollection($appointments->paginate()->appends($request->query()));
     }
 
     /**
@@ -34,7 +46,18 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        return new AppointmentResource($appointment->load(['mascota', 'usuario']));
+        $includePets = request()->query('includePets');
+        $includeUser = request()->query('includeUser');
+
+        if ($includePets) {
+            $appointment->loadMissing('mascota');
+        }
+
+        if ($includeUser) {
+            $appointment->loadMissing('usuario');
+        }
+
+        return new AppointmentResource($appointment);
     }
 
     /**

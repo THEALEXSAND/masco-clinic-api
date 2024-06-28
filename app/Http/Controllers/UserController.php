@@ -8,16 +8,28 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
+use App\Filters\UserFilter;
+
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $req)
     {
-        $users = User::all();
-        return new UserCollection($users);
+        $filter = new UserFilter();
+        $queryItems = $filter->transform($req);
+
+        $includeUserType = $req->query('includeUserType');
+
+        $users = User::where($queryItems);
+
+        if ($includeUserType) {
+            $users = $users->with('userType');
+        }
+
+        return new UserCollection($users->paginate()->appends($req->query()));
     }
 
     /**
@@ -34,6 +46,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $includeUserType = request()->query('includeUserType');
+
+        if ($includeUserType) {
+            return new UserResource($user->loadMissing('userType'));
+        }
+
         return new UserResource($user);
     }
 

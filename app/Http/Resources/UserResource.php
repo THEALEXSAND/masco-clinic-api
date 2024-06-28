@@ -15,7 +15,7 @@ class UserResource extends JsonResource
             'correo' => $this->correo,
             'creado_en' => $this->created_at,
             'actualizado_en' => $this->updated_at,
-            'tipo_usuario' => new UserTypeResource($this->whenLoaded('userType')),
-        ];
+            'tipo_usuario' => $this->whenLoaded('userType'),];
     }
 }
+ 

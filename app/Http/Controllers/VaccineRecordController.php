@@ -8,6 +8,7 @@ use App\Http\Requests\StoreVaccineRecordRequest;
 use App\Http\Requests\UpdateVaccineRecordRequest;
 use App\Http\Resources\VaccineRecordCollection;
 use App\Http\Resources\VaccineRecordResource;
+use App\Filters\VaccineRecordFilter;
 use Illuminate\Support\Facades\Log;
 
 class VaccineRecordController extends Controller
@@ -15,15 +16,14 @@ class VaccineRecordController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $req)
     {
-        try {
-            $vaccineRecords = VaccineRecord::paginate()->appends($request->query());
-            return new VaccineRecordCollection($vaccineRecords);
-        } catch (\Exception $e) {
-            Log::error('Error fetching vaccine records: ' . $e->getMessage());
-            return response()->json(['error' => 'Error fetching vaccine records'], 500);
-        }
+        $filter = new VaccineRecordFilter();
+        $queryItems = $filter->transform($req);
+
+        $vaccineRecords = VaccineRecord::where($queryItems);
+
+        return new VaccineRecordCollection($vaccineRecords->paginate()->appends($req->query()));
     }
 
     /**
