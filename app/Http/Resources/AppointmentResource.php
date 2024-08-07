@@ -22,7 +22,7 @@ class AppointmentResource extends JsonResource
             'asunto' => $this->asunto,
             'creado_en' => $this->created_at,
             'actualizado_en' => $this->updated_at,
-            'mascota' => new PetResource($this->whenLoaded('mascota')),
+            'pets' => new PetResource($this->whenLoaded('mascota')),
             'usuario' => new UserResource($this->whenLoaded('usuario')),
         ];
     }

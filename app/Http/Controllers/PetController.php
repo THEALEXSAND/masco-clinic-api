@@ -25,10 +25,16 @@ class PetController extends Controller
         $includeHistory = $req->query('includeHistory');
         $paginate = $req->query('paginate');
 
+        $includeCustomer = $req->query('includeCustomer');
+
         $pets = Pet::where($queryItems);
 
         if ($includeHistory) {
             $pets = $pets->with('medicalHistory');
+        }
+
+        if($includeCustomer){
+            $pets = $pets->with('customer');
         }
 
         if (!$paginate) return new PetCollection($pets->get());

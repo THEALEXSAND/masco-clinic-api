@@ -15,7 +15,7 @@ class Pet extends Model
         'tipo_animal',
         'raza',
         'sexo',
-        'edad',
+        'fecha_nacimiento',
     ];
 
     /**

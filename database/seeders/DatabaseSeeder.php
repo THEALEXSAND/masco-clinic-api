@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             RecipeSeeder::class,
             UserTypeSeeder::class,
             UserSeeder::class,
-            VaccineRecordSeeder::class,
-            AppointmentSeeder::class,
+            // VaccineRecordSeeder::class,
+            // AppointmentSeeder::class,
         ]);
     }
 }

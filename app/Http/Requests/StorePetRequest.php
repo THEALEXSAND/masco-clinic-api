@@ -23,12 +23,12 @@ class StorePetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customerId' => ['required', 'integer'],
+            'customer_id' => ['required', 'integer'],
             'nombre' => ['required'],
-            'tipoAnimal' => ['required'],
+            'tipo_animal' => ['required'],
             'raza' => ['required'],
             'sexo' => ['required', Rule::in(['Macho', 'Hembra'])],
-            'edad' => ['required', 'numeric'],
+            'fecha_nacimiento' => ['required', 'date'],
         ];
     }
 
@@ -36,7 +36,8 @@ class StorePetRequest extends FormRequest
     {
         $this->merge([
             'customer_id' => $this->customerId,
-            'tipo_animal' => $this->tipoAnimal
+            'tipo_animal' => $this->tipoAnimal,
+            'fecha_nacimiento' => $this->fechaNacimiento
         ]);
     }
 }

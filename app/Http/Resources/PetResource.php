@@ -21,7 +21,7 @@ class PetResource extends JsonResource
             'tipoAnimal' => $this->tipo_animal,
             'raza' => $this->raza,
             'sexo' => $this->sexo,
-            'edad' => $this->edad,
+            'fechaNacimiento' => $this->fecha_nacimiento,
             'history' => MedicalHistoryResource::make($this->whenLoaded('medicalHistory')),
             'creadoEn' => $this->created_at,
             'actualizadoEn' => $this->updated_at,

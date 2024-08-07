@@ -19,7 +19,9 @@ class PetFactory extends Factory
     {
         $animalType = $this->faker->randomElement(['Perro', 'Gato']);
 
-        $breed = $animalType === 'Perro' ? $this->faker->randomElement(['Labrador', 'Golden Retriever', 'Jack Russell Terrier', 'Chihuahua', 'Husky', 'Dalmata']) : $this->faker->randomElement(['Abisinio', 'Americano de pelo duro', 'Asiático', 'Balinés', 'Bengalí', 'Birmano', 'Bobtail japonés de pelo corto', 'Bobtail japonés de pelo largo']);
+        $breed = $animalType === 'Perro' 
+            ? $this->faker->randomElement(['Labrador', 'Golden Retriever', 'Jack Russell Terrier', 'Chihuahua', 'Husky', 'Dalmata']) 
+            : $this->faker->randomElement(['Abisinio', 'Americano de pelo duro', 'Asiático', 'Balinés', 'Bengalí', 'Birmano', 'Bobtail japonés de pelo corto', 'Bobtail japonés de pelo largo']);
 
         return [
             'customer_id' => Customer::factory(),
@@ -27,7 +29,7 @@ class PetFactory extends Factory
             'raza' => $breed,
             'tipo_animal' => $animalType,
             'sexo' => $this->faker->randomElement(['Macho', 'Hembra']),
-            'edad' => $this->faker->numberBetween(1, 14)
+            'fecha_nacimiento' => $this->faker->dateTimeBetween('-14 years', 'now')->format('Y-m-d')
         ];
     }
 }

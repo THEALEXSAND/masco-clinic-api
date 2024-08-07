@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('raza');
             $table->string('tipo_animal');
             $table->string('sexo');
-            $table->integer('edad');
+            $table->date('fecha_nacimiento'); // Cambiar a fecha de nacimiento
             $table->timestamps();
         });
     }
