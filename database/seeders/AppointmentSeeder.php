@@ -2,17 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Specie;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SpecieSeeder extends Seeder
+class AppointmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Specie::factory()->count(6)->make();
+        //
     }
 }
