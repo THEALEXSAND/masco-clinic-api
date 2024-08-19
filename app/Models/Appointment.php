@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MedicalHistory extends Model
+class Appointment extends Model
 {
     use HasFactory;
 
     /**
-     * Get the pet that owns the MedicalHistory
+     * Get the pet that owns the Appointment
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -20,12 +20,12 @@ class MedicalHistory extends Model
     }
 
     /**
-     * Get all of the consultations for the MedicalHistory
+     * Get the user that owns the Appointment
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function consultations()
+    public function user()
     {
-        return $this->hasMany(Consultation::class);
+        return $this->belongsTo(User::class);
     }
 }

@@ -11,6 +11,9 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'cedula';
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,5 +46,35 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get all of the appointments for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    /**
+     * Get all of the consultations for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function consultations()
+    {
+        return $this->hasMany(Consultation::class, 'foreign_key', 'local_key');
+    }
+
+    /**
+     * Get the user type that owns the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function userType()
+    {
+        return $this->belongsTo(UserType::class);
     }
 }

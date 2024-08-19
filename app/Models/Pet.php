@@ -38,4 +38,14 @@ class Pet extends Model
     {
         return $this->hasOne(MedicalHistory::class);
     }
+
+    /**
+     * Get all of the appointments for the Pet
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }

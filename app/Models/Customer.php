@@ -10,6 +10,8 @@ class Customer extends Model
     use HasFactory;
 
     protected $primaryKey = 'cedula';
+    // protected $keyType = 'string';
+
     public $incrementing = false;
 
     /**
