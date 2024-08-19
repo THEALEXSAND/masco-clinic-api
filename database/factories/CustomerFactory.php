@@ -17,7 +17,11 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'cedula' => fake()->unique()->numberBetween(100000, 50000000),
+            'nombre' => fake()->firstName(),
+            'apellido' => fake()->lastName(),
+            'direccion' => fake()->address(),
+            'telefono' => fake()->phoneNumber(),
         ];
     }
 }

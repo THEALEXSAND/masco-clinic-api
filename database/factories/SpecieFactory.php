@@ -16,8 +16,12 @@ class SpecieFactory extends Factory
      */
     public function definition(): array
     {
+        $species = ['Perro', 'Gato', 'Conejo', 'Tortuga', 'Pez', 'Ave'];
+
+        $selectedSpecie = fake()->unique()->randomElement($species);
+
         return [
-            //
+            'nombre' => $selectedSpecie
         ];
     }
 }

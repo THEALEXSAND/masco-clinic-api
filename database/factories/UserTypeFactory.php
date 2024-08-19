@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MedicalHistory>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UserType>
  */
-class MedicalHistoryFactory extends Factory
+class UserTypeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class MedicalHistoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'antecedentes' => fake()->realText(80),
+            //
         ];
     }
 }
