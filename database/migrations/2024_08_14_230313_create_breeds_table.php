@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('breeds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('specie_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
-
-            $table->string('name');
+            $table->string('nombre')->unique();
             $table->timestamps();
+
+            $table->foreignId('specie_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
         });
     }
 

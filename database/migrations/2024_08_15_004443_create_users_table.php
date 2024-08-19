@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->string('cedula', 8)->primary();
+
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('direccion');
-            $table->string('telefono');
+            $table->string('correo')->unique();
+            $table->string('contraseña');
             $table->timestamps();
+
+            $table->foreignId('user_type_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
         });
     }
 
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('users');
     }
 };

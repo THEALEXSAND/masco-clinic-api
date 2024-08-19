@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('pets', function (Blueprint $table) {
             $table->id();
 
+            $table->string('nombre');
+            $table->enum('sexo', ['Macho', 'Hembra']);
+            $table->date('fecha_nacimiento');
+            $table->timestamps();
+
             // --> Manera Larga de hacer una relacion
             $table->string('customer_cedula', 8)->nullable();
             $table->foreign('customer_cedula')->references('cedula')->on('customers')->onDelete('set null')->onUpdate('cascade');
 
-            $table->foreignId('breed_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade'); // --> Manera Corta de hacer una relacion
-            $table->string('name');
-            $table->enum('sexo', ['masculino', 'femenino']);
-            $table->date('fecha_nacimiento');
-            $table->timestamps();
+            $table->foreignId('breed_id')->nullable()->constrained()->onDelete('set null')->onUpdate('set null'); // --> Manera Corta de hacer una relacion
         });
     }
 

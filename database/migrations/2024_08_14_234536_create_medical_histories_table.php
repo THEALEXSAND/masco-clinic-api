@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
+            $table->string('antecedentes')->nullable();
+
             $table->foreignId('pet_id')->unique()->constrained();
-            $table->string('antecedentes');
             $table->timestamps();
         });
     }
