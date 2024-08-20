@@ -2,4 +2,10 @@
 
 namespace App\Http\Controllers;
 
-abstract class Controller {}
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
+abstract class Controller
+{
+    //
+}
