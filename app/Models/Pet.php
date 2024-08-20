@@ -9,6 +9,15 @@ class Pet extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'customer_cedula',
+        'breed_id',
+        'nombre',
+        'sexo',
+        'fecha_nacimiento'
+    ];
+
     /**
      * Get the customer that owns the Pet
      *
