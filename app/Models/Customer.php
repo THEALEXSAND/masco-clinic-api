@@ -9,8 +9,16 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'cedula',
+        'nombre',
+        'apellido',
+        'direccion',
+        'telefono',
+    ];
+
     protected $primaryKey = 'cedula';
-    // protected $keyType = 'string';
+    protected $keyType = 'string';
 
     public $incrementing = false;
 
