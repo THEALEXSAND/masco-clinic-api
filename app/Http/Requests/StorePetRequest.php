@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePetRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StorePetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,23 @@ class StorePetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => ['sometimes', 'numeric'],
+            'customerIdCard' => ['required', 'numeric', 'max_digits:8', 'exists:customers,cedula'],
+            'breedId' => ['required', 'numeric', 'exists:breeds,id'],
+            'name' => ['required'],
+            'gender' => ['required', Rule::in(['Macho', 'Hembra'])],
+            'birthdate' => ['required', 'date']
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'customer_cedula' => $this->customerIdCard,
+            'breed_id' => $this->breedId,
+            'nombre' => $this->name,
+            'sexo' => $this->gender,
+            'fecha_nacimiento' => $this->birthdate,
+        ]);
     }
 }

@@ -11,7 +11,7 @@ class StoreCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,22 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'cedula' => ['required', 'max_digits:8', 'numeric', 'unique:customers'],
+            'nombre' => ['required'],
+            'apellido' => ['required'],
+            'direccion' => ['required'],
+            'telefono' => ['required'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'cedula' => $this->idCard,
+            'nombre' => $this->name,
+            'apellido' => $this->lastName,
+            'direccion' => $this->address,
+            'telefono' => $this->phone
+        ]);
     }
 }
