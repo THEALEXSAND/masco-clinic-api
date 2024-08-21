@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PetCollection extends ResourceCollection
 {
+    public static $wrap = 'pets';
+
     /**
      * Transform the resource collection into an array.
      *

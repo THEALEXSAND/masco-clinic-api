@@ -6,6 +6,7 @@ use App\Filters\MedicalHistoryFilter;
 use App\Models\MedicalHistory;
 use App\Http\Requests\StoreMedicalHistoryRequest;
 use App\Http\Requests\UpdateMedicalHistoryRequest;
+use App\Http\Resources\MedicalHistoryCollection;
 use App\Http\Resources\MedicalHistoryResource;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class MedicalHistoryController extends Controller
         if ($includePet) $medicalHistories = $medicalHistories->with('pet');
         if ($includeConsultations) $medicalHistories = $medicalHistories->with('consultations');
 
-        return MedicalHistoryResource::collection($medicalHistories->paginate()->appends($req->all()));
+        return new MedicalHistoryCollection($medicalHistories->paginate()->appends($req->all()));
     }
 
     /**

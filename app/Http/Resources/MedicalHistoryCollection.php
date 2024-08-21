@@ -5,9 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CustomerCollection extends ResourceCollection
+class MedicalHistoryCollection extends ResourceCollection
 {
-    public static $wrap = 'customers';
+    public static $wrap = 'medicalHistories';
 
     /**
      * Transform the resource collection into an array.

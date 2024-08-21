@@ -6,6 +6,7 @@ use App\Filters\UserFilter;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class UserController extends Controller
 
         $users = User::where($queryItems);
 
-        return UserResource::collection($users->paginate()->appends($req->all()));
+        return new UserCollection($users->paginate()->appends($req->all()));
     }
 
     /**
@@ -43,8 +44,12 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(User $user, Request $req)
     {
+        $includeConsultations = $req->query('includeConsultations');
+
+        if ($includeConsultations) return new UserResource($user->loadMissing('consultations'));
+
         return new UserResource($user);
     }
 
