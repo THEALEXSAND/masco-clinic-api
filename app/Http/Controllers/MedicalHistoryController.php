@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\MedicalHistoryFilter;
 use App\Models\MedicalHistory;
 use App\Http\Requests\StoreMedicalHistoryRequest;
 use App\Http\Requests\UpdateMedicalHistoryRequest;
+use App\Http\Resources\MedicalHistoryResource;
+use Illuminate\Http\Request;
 
 class MedicalHistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $req)
     {
-        //
+        $filter = new MedicalHistoryFilter();
+        $queryItems = $filter->transform($req);
+
+        $includeConsultations = $req->query('includeConsultations');
+        $includePet = $req->query('includePet');
+
+        $medicalHistories = MedicalHistory::where($queryItems);
+
+        if ($includePet) $medicalHistories = $medicalHistories->with('pet');
+        if ($includeConsultations) $medicalHistories = $medicalHistories->with('consultations');
+
+        return MedicalHistoryResource::collection($medicalHistories->paginate()->appends($req->all()));
     }
 
     /**
@@ -27,17 +41,23 @@ class MedicalHistoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMedicalHistoryRequest $request)
+    public function store(StoreMedicalHistoryRequest $req)
     {
-        //
+        return new MedicalHistoryResource(MedicalHistory::create($req->all()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(MedicalHistory $medicalHistory)
+    public function show(MedicalHistory $medicalHistory, Request $req)
     {
-        //
+        $includePet = $req->query('includePet');
+        $includeConsultations = $req->query('includeConsultations');
+
+        if ($includePet) $medicalHistory = $medicalHistory->loadMissing('pet');
+        if ($includeConsultations) $medicalHistory = $medicalHistory->loadMissing('consultations');
+
+        return new MedicalHistoryResource($medicalHistory);
     }
 
     /**
@@ -51,9 +71,13 @@ class MedicalHistoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMedicalHistoryRequest $request, MedicalHistory $medicalHistory)
+    public function update(UpdateMedicalHistoryRequest $req, MedicalHistory $medicalHistory)
     {
-        //
+        $medicalHistory->update($req->all());
+
+        return response(
+            ['message' => 'Medical history updated successfully']
+        );
     }
 
     /**
@@ -61,6 +85,10 @@ class MedicalHistoryController extends Controller
      */
     public function destroy(MedicalHistory $medicalHistory)
     {
-        //
+        $medicalHistory->delete();
+
+        return response(
+            ['message' => 'Medical history updated successfully']
+        );
     }
 }

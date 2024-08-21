@@ -11,7 +11,7 @@ class UpdateMedicalHistoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,26 @@ class UpdateMedicalHistoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $method = $this->method();
+
+        if ($method === 'PUT') return [
+            'petId' => ['required', 'numeric', 'exists:pets,id'],
+            'record' => ['sometimes', 'nullable'],
         ];
+        else return [
+            'petId' => ['sometimes', 'numeric', 'exists:pets,id'],
+            'record' => ['sometimes', 'nullable'],
+        ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->petId) $this->merge([
+            'pet_id' => $this->petId
+        ]);
+
+        if ($this->record) $this->merge([
+            'antecedentes' => $this->record
+        ]);
     }
 }

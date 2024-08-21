@@ -11,7 +11,7 @@ class StoreMedicalHistoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class StoreMedicalHistoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'petId' => ['required', 'numeric', 'exists:pets,id'],
+            'record' => ['sometimes', 'nullable'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'pet_id' => $this->petId,
+            'antecedentes' => $this->record,
+        ]);
     }
 }
