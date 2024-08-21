@@ -9,6 +9,12 @@ class MedicalHistory extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'pet_id',
+        'antecedentes'
+    ];
+
     /**
      * Get the pet that owns the MedicalHistory
      *

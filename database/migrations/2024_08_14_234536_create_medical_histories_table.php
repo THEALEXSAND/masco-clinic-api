@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('antecedentes')->nullable();
 
-            $table->foreignId('pet_id')->unique()->constrained();
+            $table->foreignId('pet_id')->unique()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
