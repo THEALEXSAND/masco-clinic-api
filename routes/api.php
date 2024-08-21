@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\UserController;
@@ -12,8 +13,9 @@ Route::group(['prefix' => 'v2', 'namespace' => 'App\Http\Controllers'], function
         'breeds' => BreedController::class,
         'customers' => CustomerController::class,
         'pets' => PetController::class,
+        'medical-histories' => MedicalHistoryController::class,
         'species' => SpecieController::class,
-        'users' => UserController::class
+        'users' => UserController::class,
     ]);
 
     Route::fallback(function () {
