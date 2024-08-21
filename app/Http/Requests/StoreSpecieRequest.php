@@ -11,7 +11,7 @@ class StoreSpecieRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class StoreSpecieRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'unique:species,nombre'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'nombre' => $this->name
+        ]);
     }
 }

@@ -11,7 +11,7 @@ class UpdateSpecieRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,22 @@ class UpdateSpecieRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $method = $this->method();
+
+        if ($method === 'PUT') return [
+            'id' => ['sometimes', 'unique:species'],
+            'name' => ['required', 'unique:species,nombre'],
         ];
+        else return [
+            'id' => ['sometimes', 'unique:species'],
+            'name' => ['sometimes', 'unique:species,nombre'],
+        ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->name) $this->merge([
+            'nombre' => $this->name
+        ]);
     }
 }

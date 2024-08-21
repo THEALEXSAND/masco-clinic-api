@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\SpecieFilter;
 use App\Models\Specie;
 use App\Http\Requests\StoreSpecieRequest;
 use App\Http\Requests\UpdateSpecieRequest;
 use App\Http\Resources\SpecieResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class SpecieController extends Controller
 {
@@ -16,13 +16,14 @@ class SpecieController extends Controller
      */
     public function index(Request $req)
     {
-        $filters = null;
+        $filter = new SpecieFilter();
+        $queryItems = $filter->transform($req);
 
         $includeBreeds = $req->query('includeBreeds');
 
-        $species = Specie::paginate();
+        $species = Specie::where($queryItems);
 
-        if ($includeBreeds) $species = $species->load('breeds');
+        if ($includeBreeds) $species = $species->with('breeds');
 
         /* 
         Forma "SQL puro" (No es la forma mas optima 💩💩💩) -->
@@ -45,7 +46,7 @@ class SpecieController extends Controller
             return $speciesWithBreeds;
         } */
 
-        return SpecieResource::collection($species);
+        return SpecieResource::collection($species->paginate()->appends($req->all()));
     }
 
     /**
@@ -59,9 +60,9 @@ class SpecieController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSpecieRequest $request)
+    public function store(StoreSpecieRequest $req)
     {
-        //
+        return new SpecieResource(Specie::create($req->all()));
     }
 
     /**
@@ -69,7 +70,7 @@ class SpecieController extends Controller
      */
     public function show(Specie $specie)
     {
-        //
+        return new SpecieResource($specie);
     }
 
     /**
@@ -83,9 +84,13 @@ class SpecieController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSpecieRequest $request, Specie $specie)
+    public function update(UpdateSpecieRequest $req, Specie $specie)
     {
-        //
+        $specie->update($req->all());
+
+        return response([
+            'message' => 'Specie updated correctly',
+        ]);
     }
 
     /**
@@ -93,6 +98,10 @@ class SpecieController extends Controller
      */
     public function destroy(Specie $specie)
     {
-        //
+        $specie->delete();
+
+        return response([
+            'message' => 'Specie deleted correctly',
+        ]);
     }
 }
