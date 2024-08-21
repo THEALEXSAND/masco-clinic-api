@@ -14,9 +14,10 @@ Route::group(['prefix' => 'v2', 'namespace' => 'App\Http\Controllers'], function
         'customers' => CustomerController::class,
         'pets' => PetController::class,
         'medical-histories' => MedicalHistoryController::class,
-        'species' => SpecieController::class,
         'users' => UserController::class,
     ]);
+
+    Route::apiResource('species', SpecieController::class)->parameter('species', 'specie');
 
     Route::fallback(function () {
         return response([
