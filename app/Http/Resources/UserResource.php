@@ -26,6 +26,7 @@ class UserResource extends JsonResource
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
 
+            'consultations' => ConsultationResource::make($this->whenLoaded('consultations'))
         ];
     }
 }
