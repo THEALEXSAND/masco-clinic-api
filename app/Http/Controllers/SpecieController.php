@@ -6,6 +6,7 @@ use App\Filters\SpecieFilter;
 use App\Models\Specie;
 use App\Http\Requests\StoreSpecieRequest;
 use App\Http\Requests\UpdateSpecieRequest;
+use App\Http\Resources\SpecieCollection;
 use App\Http\Resources\SpecieResource;
 use Illuminate\Http\Request;
 
@@ -46,7 +47,7 @@ class SpecieController extends Controller
             return $speciesWithBreeds;
         } */
 
-        return SpecieResource::collection($species->paginate()->appends($req->all()));
+        return new SpecieCollection($species->paginate()->appends($req->all()));
     }
 
     /**

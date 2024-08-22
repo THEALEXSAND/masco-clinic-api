@@ -20,6 +20,8 @@ class BreedResource extends JsonResource
             'name' => $this->nombre,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
+
+            'specie' => SpecieResource::make($this->whenLoaded('specie'))
         ];
     }
 }
