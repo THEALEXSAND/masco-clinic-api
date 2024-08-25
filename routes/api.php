@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BreedController;
+use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicalHistoryController;
 use App\Http\Controllers\PetController;
@@ -14,6 +15,7 @@ Route::group(['prefix' => 'v2', 'namespace' => 'App\Http\Controllers'], function
         'customers' => CustomerController::class,
         'pets' => PetController::class,
         'medical-histories' => MedicalHistoryController::class,
+        'consultations' => ConsultationController::class,
         'users' => UserController::class,
     ]);
 
