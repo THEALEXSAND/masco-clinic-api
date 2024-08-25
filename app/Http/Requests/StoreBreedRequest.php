@@ -11,7 +11,7 @@ class StoreBreedRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,16 @@ class StoreBreedRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'specieId' => ['required', 'exists:species,id'],
+            'name' => ['required', 'unique:breeds,nombre'],
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'specie_id' => $this->specieId,
+            'nombre' => $this->name
+        ]);
     }
 }

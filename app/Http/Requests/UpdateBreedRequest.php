@@ -11,7 +11,7 @@ class UpdateBreedRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,28 @@ class UpdateBreedRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $method = $this->method();
+
+        if ($method === 'PUT') return [
+            'id' => ['sometimes', 'unique:breeds'],
+            'specieId' => ['required', 'exists:species,id'],
+            'name' => ['required', 'unique:breeds,nombre']
         ];
+        else return [
+            'id' => ['sometimes', 'unique:breeds'],
+            'specieId' => ['sometimes', 'exists:species,id'],
+            'name' => ['sometimes', 'unique:breeds,nombre']
+        ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->specieId) $this->merge([
+            'pet_id' => $this->specieId
+        ]);
+
+        if ($this->name) $this->merge([
+            'nombre' => $this->name
+        ]);
     }
 }

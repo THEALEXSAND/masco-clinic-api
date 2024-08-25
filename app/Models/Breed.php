@@ -9,6 +9,12 @@ class Breed extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'specie_id',
+        'nombre'
+    ];
+
     /**
      * Get all of the pets for the Breed
      *
