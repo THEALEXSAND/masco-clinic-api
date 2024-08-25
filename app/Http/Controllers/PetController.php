@@ -25,7 +25,7 @@ class PetController extends Controller
         $includeHistory = $req->query('includeHistory');
         $includeAppointments = $req->query('includeAppointments');
 
-        if ($includeHistory) $pets = $pets->with('medicalHistory');
+        if ($includeHistory) $pets = $pets->with('medicalHistory.consultations');
 
         if ($includeAppointments) $pets = $pets->with('appointments');
 
@@ -60,7 +60,7 @@ class PetController extends Controller
 
         if ($includeOwner) $pet = $pet->loadMissing('customer');
 
-        if ($includeHistory) $pet = $pet->loadMissing('medicalHistory');
+        if ($includeHistory) $pet = $pet->loadMissing('medicalHistory.consultations');
 
         if ($includeAppointments) $pet = $pet->loadMissing('appointments');
 
