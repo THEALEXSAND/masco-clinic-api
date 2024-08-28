@@ -57,8 +57,8 @@ class ConsultationController extends Controller
         $includeUser = $req->query('includeUser');
         $includePet = $req->query('includePet');
 
-        if ($includeUser) $consultation = $consultation->with('user');
-        if ($includePet) $consultation = $consultation->with('medicalHistory.pet');
+        if ($includeUser) $consultation = $consultation->loadMissing('user');
+        if ($includePet) $consultation = $consultation->loadMissing('medicalHistory.pet');
 
         return new ConsultationResource($consultation);
     }
