@@ -21,13 +21,13 @@ class ConsultationController extends Controller
         $queryItems = $filter->transform($req);
 
         $orderByLatest = $req->query('latest');
-        $includeVeterinarian = $req->query('includeVeterinarian');
+        $includeUser = $req->query('includeUser');
         $includePet = $req->query('includePet');
 
         $consultations = Consultation::where($queryItems);
 
         if ($orderByLatest) $consultations = $consultations->latest('id');
-        if ($includeVeterinarian) $consultations = $consultations->with('user');
+        if ($includeUser) $consultations = $consultations->with('user');
         if ($includePet) $consultations = $consultations->with('medicalHistory.pet');
 
         return new ConsultationCollection($consultations->paginate()->appends($req->all()));
@@ -44,16 +44,22 @@ class ConsultationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreConsultationRequest $request)
+    public function store(StoreConsultationRequest $req)
     {
-        //
+        return new ConsultationResource(Consultation::create($req->all()));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Consultation $consultation)
+    public function show(Consultation $consultation, Request $req)
     {
+        $includeUser = $req->query('includeUser');
+        $includePet = $req->query('includePet');
+
+        if ($includeUser) $consultation = $consultation->with('user');
+        if ($includePet) $consultation = $consultation->with('medicalHistory.pet');
+
         return new ConsultationResource($consultation);
     }
 
@@ -68,9 +74,13 @@ class ConsultationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateConsultationRequest $request, Consultation $consultation)
+    public function update(UpdateConsultationRequest $req, Consultation $consultation)
     {
-        //
+        $consultation->update($req->all());
+
+        return response([
+            'message' => 'Consultation updated sucessfully'
+        ]);
     }
 
     /**
@@ -78,6 +88,10 @@ class ConsultationController extends Controller
      */
     public function destroy(Consultation $consultation)
     {
-        //
+        $consultation->delete();
+
+        return response([
+            'message' => 'Consultation updated sucessfully'
+        ]);
     }
 }

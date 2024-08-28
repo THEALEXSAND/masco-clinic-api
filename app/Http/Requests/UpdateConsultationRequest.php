@@ -11,7 +11,7 @@ class UpdateConsultationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,44 @@ class UpdateConsultationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $method = $this->method();
+
+        if ($method === 'PUT') return [
+            'medicalHistoryId' => ['required', 'numeric', 'exists:medical_histories,id'],
+            'userIdCard' => ['required', 'max_digits:8', 'exists:users,cedula'],
+            'diagnostic' => ['required'],
+            'observation' => ['required'],
+            'description' => ['required']
         ];
+        else return [
+            'medicalHistoryId' => ['sometimes', 'numeric', 'exists:medical_histories,id'],
+            'userIdCard' => ['sometimes', 'max_digits:8', 'exists:users,cedula'],
+            'diagnostic' => ['sometimes'],
+            'observation' => ['sometimes'],
+            'description' => ['sometimes']
+        ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->medicalHistoryId) $this->merge([
+            'medical_history_id' => $this->medicalHistoryId
+        ]);
+
+        if ($this->userIdCard) $this->merge([
+            'user_cedula' => $this->userIdCard
+        ]);
+
+        if ($this->diagnostic) $this->merge([
+            'diagnostico' => $this->diagnostic
+        ]);
+
+        if ($this->observation) $this->merge([
+            'observacion' => $this->observation
+        ]);
+
+        if ($this->description) $this->merge([
+            'descripcion' => $this->description
+        ]);
     }
 }
