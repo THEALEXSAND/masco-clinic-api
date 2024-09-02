@@ -11,7 +11,7 @@ class StoreAppointmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,20 @@ class StoreAppointmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'petId' => ['required', 'exists:pets,id', 'numeric'],
+            'userIdCard' => ['required', 'max_digits:8', 'exists:users,cedula'],
+            'subject' => ['required'],
+            'dateTime' => ['required', 'date']
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'pet_id' => $this->petId,
+            'user_cedula' => $this->userIdCard,
+            'asunto' => $this->subject,
+            'fecha_hora' => $this->dateTime,
+        ]);
     }
 }

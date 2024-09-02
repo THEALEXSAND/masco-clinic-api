@@ -11,7 +11,7 @@ class UpdateAppointmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,21 @@ class UpdateAppointmentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $method = $this->method();
+
+        if ($method === 'PUT') return [
+            'id' => ['sometimes', 'unique:appointments'],
+            'petId' => ['required', 'exists:pets,id', 'numeric'],
+            'userIdCard' => ['required', 'max_digits:8', 'exists:users,cedula'],
+            'subject' => ['required'],
+            'dateTime' => ['required', 'date']
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->subject) $this->merge([
+            'asunto' => $this->subject
+        ]);
     }
 }

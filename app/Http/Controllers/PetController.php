@@ -18,15 +18,13 @@ class PetController extends Controller
     public function index(Request $req)
     {
         $filter = new PetFilter();
-        $queryItems = $filter->transform($req);
 
-        $pets = Pet::where($queryItems);
+        $pets = parent::baseIndex($req, $filter, new Pet);
 
         $includeHistory = $req->query('includeHistory');
         $includeAppointments = $req->query('includeAppointments');
 
         if ($includeHistory) $pets = $pets->with('medicalHistory.consultations');
-
         if ($includeAppointments) $pets = $pets->with('appointments');
 
 
@@ -59,9 +57,7 @@ class PetController extends Controller
         $includeAppointments = $req->query('includeAppointments');
 
         if ($includeOwner) $pet = $pet->loadMissing('customer');
-
         if ($includeHistory) $pet = $pet->loadMissing('medicalHistory.consultations');
-
         if ($includeAppointments) $pet = $pet->loadMissing('appointments');
 
         return new PetResource($pet);
@@ -80,11 +76,7 @@ class PetController extends Controller
      */
     public function update(UpdatePetRequest $req, Pet $pet)
     {
-        $pet->update($req->all());
-
-        return response([
-            'message' => 'Pet updated successfully'
-        ]);
+        return parent::baseUpdate($req, $pet);
     }
 
     /**
@@ -92,10 +84,6 @@ class PetController extends Controller
      */
     public function destroy(Pet $pet)
     {
-        $pet->delete();
-
-        return response([
-            'message' => 'Pet deleted successfully'
-        ]);
+        return parent::baseDestroy($pet);
     }
 }

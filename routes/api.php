@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\CustomerController;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v2', 'namespace' => 'App\Http\Controllers'], function () {
     Route::apiResources([
+        'appointments' => AppointmentController::class,
         'breeds' => BreedController::class,
         'customers' => CustomerController::class,
         'pets' => PetController::class,

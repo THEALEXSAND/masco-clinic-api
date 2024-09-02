@@ -9,6 +9,20 @@ class Appointment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'id',
+        'pet_id',
+        'user_cedula',
+        'asunto',
+        'fecha_hora'
+    ];
+
+    protected function casts()
+    {
+        return [
+            'fecha_hora' => 'date:c'
+        ];
+    }
     /**
      * Get the pet that owns the Appointment
      *

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('asunto');
-            $table->date('fecha');
+            $table->dateTime('fecha_hora');
             $table->timestamps();
 
             $table->foreignId('pet_id')->constrained()->onDelete('cascade')->onUpdate('cascade');

@@ -18,17 +18,16 @@ class MedicalHistoryController extends Controller
     public function index(Request $req)
     {
         $filter = new MedicalHistoryFilter();
-        $queryItems = $filter->transform($req);
+
+        $medicalHistories = parent::baseIndex($req, $filter, new MedicalHistory);
 
         $includeConsultations = $req->query('includeConsultations');
         $includePet = $req->query('includePet');
 
-        $medicalHistories = MedicalHistory::where($queryItems);
-
         if ($includePet) $medicalHistories = $medicalHistories->with('pet');
         if ($includeConsultations) $medicalHistories = $medicalHistories->with('consultations');
 
-        return new MedicalHistoryCollection($medicalHistories->paginate()->appends($req->all()));
+        return new MedicalHistoryCollection($medicalHistories->paginate()->appends($req->query()));
     }
 
     /**
@@ -74,11 +73,7 @@ class MedicalHistoryController extends Controller
      */
     public function update(UpdateMedicalHistoryRequest $req, MedicalHistory $medicalHistory)
     {
-        $medicalHistory->update($req->all());
-
-        return response(
-            ['message' => 'Medical history updated successfully']
-        );
+        return parent::baseUpdate($req, $medicalHistory);
     }
 
     /**
@@ -86,10 +81,6 @@ class MedicalHistoryController extends Controller
      */
     public function destroy(MedicalHistory $medicalHistory)
     {
-        $medicalHistory->delete();
-
-        return response(
-            ['message' => 'Medical history updated successfully']
-        );
+        return parent::baseDestroy($medicalHistory);
     }
 }

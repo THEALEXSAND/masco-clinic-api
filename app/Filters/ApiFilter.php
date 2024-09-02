@@ -18,6 +18,11 @@ class ApiFilter
         'lte' => '<=',
     ];
 
+    public function transformParam($param)
+    {
+        return $this->columnMap[$param] ?? head($this->columnMap);
+    }
+
     public function transform(Request $req)
     {
         $eloQuery = [];

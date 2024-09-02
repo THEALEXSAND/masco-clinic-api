@@ -18,11 +18,10 @@ class UserController extends Controller
     public function index(Request $req)
     {
         $filter = new UserFilter();
-        $queryItems = $filter->transform($req);
 
-        $users = User::where($queryItems);
+        $users = parent::baseIndex($req, $filter, new User);
 
-        return new UserCollection($users->paginate()->appends($req->all()));
+        return new UserCollection($users->paginate()->appends($req->query()));
     }
 
     /**
@@ -74,6 +73,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        return parent::baseDestroy($user);
     }
 }

@@ -26,7 +26,7 @@ class BreedController extends Controller
 
         if ($includeSpecie) $breeds = $breeds->with('specie');
 
-        return new BreedCollection($breeds->paginate()->appends($req->all()));
+        return new BreedCollection($breeds->paginate()->appends($req->query()));
     }
 
     /**

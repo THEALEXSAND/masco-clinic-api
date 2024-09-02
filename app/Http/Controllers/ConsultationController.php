@@ -18,19 +18,18 @@ class ConsultationController extends Controller
     public function index(Request $req)
     {
         $filter = new ConsultationFilter();
-        $queryItems = $filter->transform($req);
+
+        $consultations = parent::baseIndex($req, $filter, new Consultation);
 
         $orderByLatest = $req->query('latest');
         $includeUser = $req->query('includeUser');
         $includePet = $req->query('includePet');
 
-        $consultations = Consultation::where($queryItems);
-
         if ($orderByLatest) $consultations = $consultations->latest('id');
         if ($includeUser) $consultations = $consultations->with('user');
         if ($includePet) $consultations = $consultations->with('medicalHistory.pet');
 
-        return new ConsultationCollection($consultations->paginate()->appends($req->all()));
+        return new ConsultationCollection($consultations->paginate()->appends($req->query()));
     }
 
     /**
@@ -76,11 +75,7 @@ class ConsultationController extends Controller
      */
     public function update(UpdateConsultationRequest $req, Consultation $consultation)
     {
-        $consultation->update($req->all());
-
-        return response([
-            'message' => 'Consultation updated sucessfully'
-        ]);
+        return parent::baseUpdate($req, $consultation);
     }
 
     /**
@@ -88,10 +83,6 @@ class ConsultationController extends Controller
      */
     public function destroy(Consultation $consultation)
     {
-        $consultation->delete();
-
-        return response([
-            'message' => 'Consultation updated sucessfully'
-        ]);
+        return parent::baseDestroy($consultation);
     }
 }

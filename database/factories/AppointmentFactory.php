@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Pet;
 use App\Models\User;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,7 +24,7 @@ class AppointmentFactory extends Factory
         return [
             'user_cedula' => fake()->randomElement($users),
             'asunto' => fake()->sentence(),
-            'fecha' => fake()->dateTimeBetween('-1 years')->format('Y-m-d')
+            'fecha_hora' => fake()->dateTimeBetween('-1 years')
         ];
     }
 }

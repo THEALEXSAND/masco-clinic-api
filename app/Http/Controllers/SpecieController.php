@@ -47,7 +47,7 @@ class SpecieController extends Controller
             return $speciesWithBreeds;
         } */
 
-        return new SpecieCollection($species->paginate()->appends($req->all()));
+        return new SpecieCollection($species->paginate()->appends($req->query()));
     }
 
     /**
