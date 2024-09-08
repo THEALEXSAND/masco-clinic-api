@@ -16,6 +16,8 @@ class BreedFactory extends Factory
         'cats' => ['Abisinio', 'Americano de pelo duro', 'Asiático', 'Balinés', 'Bengalí', 'Birmano', 'Bobtail japonés de pelo corto', 'Bobtail japonés de pelo largo']
     ];
 
+    private $selectedBreed;
+
     /**
      * Define the model's default state.
      *
@@ -31,12 +33,12 @@ class BreedFactory extends Factory
 
     public function setSpecie(string $specie = 'dogs')
     {
-        if ($specie === 'cats') return $this->sequence(function (Sequence $sequence) {
-            return ['nombre' => $this->breeds['cats'][$sequence->index]];
-        });
+        $this->selectedBreed = $this->breeds[$specie];
 
-        if ($specie === 'dogs') return $this->sequence(function (Sequence $sequence) {
-            return ['nombre' => $this->breeds['dogs'][$sequence->index]];
+        if (!$this->selectedBreed) return;
+
+        return $this->sequence(function (Sequence $sequence) {
+            return ['nombre' => $this->selectedBreed[$sequence->index]];
         });
     }
 }

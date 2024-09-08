@@ -18,7 +18,7 @@ class ApiFilter
         'lte' => '<=',
     ];
 
-    public function transformParam($param)
+    public function transformParam(string $param)
     {
         return $this->columnMap[$param] ?? head($this->columnMap);
     }

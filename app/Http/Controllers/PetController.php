@@ -21,10 +21,12 @@ class PetController extends Controller
 
         $pets = parent::baseIndex($req, $filter, new Pet);
 
+        $includeOwner = $req->query('includeOwner');
         $includeHistory = $req->query('includeHistory');
         $includeAppointments = $req->query('includeAppointments');
 
-        if ($includeHistory) $pets = $pets->with('medicalHistory.consultations');
+        if ($includeOwner) $pets = $pets->with('customer');
+        if ($includeHistory) $pets = $pets->with(['medicalHistory' => ['consultations', 'vaccineRecords']]);
         if ($includeAppointments) $pets = $pets->with('appointments');
 
 
@@ -57,7 +59,7 @@ class PetController extends Controller
         $includeAppointments = $req->query('includeAppointments');
 
         if ($includeOwner) $pet = $pet->loadMissing('customer');
-        if ($includeHistory) $pet = $pet->loadMissing('medicalHistory.consultations');
+        if ($includeHistory) $pet = $pet->loadMissing(['medicalHistory' => ['consultations', 'vaccineRecords']]);
         if ($includeAppointments) $pet = $pet->loadMissing('appointments');
 
         return new PetResource($pet);

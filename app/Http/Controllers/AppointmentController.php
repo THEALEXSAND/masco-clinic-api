@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Filters\ApiFilter;
 use App\Filters\AppointmentFilter;
 use App\Models\Appointment;
 use App\Http\Requests\StoreAppointmentRequest;

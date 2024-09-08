@@ -27,9 +27,9 @@ class PetResource extends JsonResource
 
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
-            'medicalHistory' => MedicalHistoryResource::make($this->whenLoaded('medicalHistory')),
 
-            'appointments' => $this->whenLoaded('appointments'),
+            'medicalHistory' => MedicalHistoryResource::make($this->whenLoaded('medicalHistory')),
+            'appointments' => AppointmentResource::collection($this->whenLoaded('appointments')),
             'owner' => CustomerResource::make($this->whenLoaded('customer'))
         ];
     }

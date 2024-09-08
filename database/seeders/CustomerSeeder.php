@@ -27,11 +27,11 @@ class CustomerSeeder extends Seeder
         )->count(5)->create();
 
         Customer::factory()->has(
-            Pet::factory()->count(2)->state(fn() => ['breed_id' => 1])->has(MedicalHistory::factory()->hasConsultations(2))->hasAppointments(2)
+            Pet::factory()->count(2)->state(fn() => ['breed_id' => 1])->has(MedicalHistory::factory()->hasVaccineRecords(2)->hasConsultations(2))->hasAppointments(2)
         )->count(5)->create();
 
         Customer::factory()->has(
-            Pet::factory()->state(fn() => ['breed_id' => 2])->has(MedicalHistory::factory()->hasConsultations(3))
+            Pet::factory()->state(fn() => ['breed_id' => 2])->has(MedicalHistory::factory()->hasVaccineRecords(4)->hasConsultations(3))
         )->count(6)->create();
 
         Customer::factory()->has(

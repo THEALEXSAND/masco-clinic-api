@@ -6,7 +6,6 @@ use App\Filters\ApiFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 
 abstract class Controller
 {
@@ -43,7 +42,7 @@ abstract class Controller
         $isDeleted = $model->delete();
 
         if (!$isDeleted) return response([
-            'message' => 'Error updating ' . $model::class
+            'message' => 'Error deteling ' . $model::class
         ], 404);
 
         return response([

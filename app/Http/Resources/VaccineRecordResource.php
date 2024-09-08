@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MedicalHistoryResource extends JsonResource
+class VaccineRecordResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,15 +16,14 @@ class MedicalHistoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'petId' => $this->pet_id,
-            'record' => $this->antecedentes,
+            'medicalHistoryId' => $this->medical_history_id,
+            'vaccineName' => $this->nombre_vacuna,
+            'observation' => $this->observacion,
+            'applicationDate' => $this->fecha_aplicacion,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
 
-            'pet' => PetResource::make($this->whenLoaded('pet')),
-
-            'consultations' => ConsultationResource::collection($this->whenLoaded('consultations')),
-            'vaccines' => VaccineRecordResource::collection($this->whenLoaded('vaccineRecords')),
+            'medicalHistory' => MedicalHistoryResource::make($this->whenLoaded('medicalHistory'))
         ];
     }
 }
