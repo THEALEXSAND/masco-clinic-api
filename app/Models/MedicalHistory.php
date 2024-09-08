@@ -34,4 +34,14 @@ class MedicalHistory extends Model
     {
         return $this->hasMany(Consultation::class);
     }
+
+    /**
+     * Get all of the vaccineRecords for the MedicalHistory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function vaccineRecords()
+    {
+        return $this->hasMany(VaccineRecord::class);
+    }
 }
