@@ -24,10 +24,12 @@ class ConsultationController extends Controller
         $orderByLatest = $req->query('latest');
         $includeUser = $req->query('includeUser');
         $includePet = $req->query('includePet');
+        $includeMedicines = $req->query('includeMedicines');
 
-        if ($orderByLatest) $consultations = $consultations->latest('id');
+        if ($orderByLatest) $consultations = $consultations->latest('created_at');
         if ($includeUser) $consultations = $consultations->with('user');
         if ($includePet) $consultations = $consultations->with('medicalHistory.pet');
+        if ($includeMedicines) $consultations = $consultations->with('medicines');
 
         return new ConsultationCollection($consultations->paginate()->appends($req->query()));
     }
@@ -45,7 +47,14 @@ class ConsultationController extends Controller
      */
     public function store(StoreConsultationRequest $req)
     {
-        return new ConsultationResource(Consultation::create($req->all()));
+        $createdConsultation = Consultation::create($req->all());
+
+        /*  Attaching medicines on consultation ( Work in progress... ) -->
+
+            $createdConsultation->medicines()->attach(1, ['cantidad' => 3, 'indicaciones' => 'perrolol']);
+        */
+
+        return new ConsultationResource($createdConsultation);
     }
 
     /**
@@ -55,9 +64,11 @@ class ConsultationController extends Controller
     {
         $includeUser = $req->query('includeUser');
         $includePet = $req->query('includePet');
+        $includeMedicines = $req->query('includeMedicines');
 
         if ($includeUser) $consultation = $consultation->loadMissing('user');
         if ($includePet) $consultation = $consultation->loadMissing('medicalHistory.pet');
+        if ($includeMedicines) $consultation = $consultation->with('medicines');
 
         return new ConsultationResource($consultation);
     }
