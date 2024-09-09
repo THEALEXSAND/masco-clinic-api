@@ -18,6 +18,16 @@ class Consultation extends Model
     ];
 
     /**
+     * The medicines that belong to the Consultation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function medicines()
+    {
+        return $this->belongsToMany(Medicine::class, 'recipes')->as('recipe')->withPivot(['cantidad', 'indicaciones']);
+    }
+
+    /**
      * Get the medical history that owns the Consultation
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -9,6 +9,10 @@ class Medicine extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nombre_generico',
+        'nombre_comercial',
+    ];
 
     /**
      * The consultations that belong to the Medicine
@@ -17,6 +21,6 @@ class Medicine extends Model
      */
     public function consultations()
     {
-        return $this->belongsToMany(Consultation::class);
+        return $this->belongsToMany(Consultation::class, 'recipes')->as('recipe')->withPivot(['cantidad', 'indicaciones']);
     }
 }

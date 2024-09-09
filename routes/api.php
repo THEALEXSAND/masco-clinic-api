@@ -5,7 +5,7 @@ use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MedicalHistoryController;
-//use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\UserController;
@@ -20,7 +20,7 @@ Route::group(['prefix' => 'v2', 'namespace' => 'App\Http\Controllers'], function
         'customers' => CustomerController::class,
         'pets' => PetController::class,
         'medical-histories' => MedicalHistoryController::class,
-        // 'medicines' => MedicineController::class,
+        'medicines' => MedicineController::class,
         'users' => UserController::class,
         'vaccine-records' => VaccineRecordController::class
     ]);

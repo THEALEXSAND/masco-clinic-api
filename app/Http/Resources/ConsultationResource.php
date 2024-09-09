@@ -26,7 +26,10 @@ class ConsultationResource extends JsonResource
             'updatedAt' => $this->updated_at,
 
             'medicalHistory' => MedicalHistoryResource::make($this->whenLoaded('medicalHistory')),
-            'veterinarian' => UserResource::make($this->whenLoaded('user'))
+            'veterinarian' => UserResource::make($this->whenLoaded('user')),
+
+            'medicines' => MedicineResource::collection($this->whenLoaded('medicines')),
+            'recipe' => RecipeResource::make($this->whenNotNull($this->recipe))
         ];
     }
 }

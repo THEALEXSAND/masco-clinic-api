@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Consultation;
 use App\Models\Customer;
 use App\Models\MedicalHistory;
+use App\Models\Medicine;
 use App\Models\Pet;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +16,8 @@ class CustomerSeeder extends Seeder
      */
     public function run(): void
     {
+        $medicines = Medicine::factory()->setNames('Febendazol')->create();
+
         Customer::factory()->has(
             Pet::factory()->count(4)->sequence(['breed_id' => 1], ['breed_id' => 2])->hasMedicalHistory()->hasAppointments(2)
         )->count(2)->create();
@@ -27,15 +31,25 @@ class CustomerSeeder extends Seeder
         )->count(5)->create();
 
         Customer::factory()->has(
-            Pet::factory()->count(2)->state(fn() => ['breed_id' => 1])->has(MedicalHistory::factory()->hasVaccineRecords(2)->hasConsultations(2))->hasAppointments(2)
+            Pet::factory()->count(2)->state(fn() => ['breed_id' => 1])->has(
+                MedicalHistory::factory()->hasVaccineRecords(2)->hasConsultations(2)
+            )->hasAppointments(2)
         )->count(5)->create();
 
         Customer::factory()->has(
-            Pet::factory()->state(fn() => ['breed_id' => 2])->has(MedicalHistory::factory()->hasVaccineRecords(4)->hasConsultations(3))
+            Pet::factory()->state(fn() => ['breed_id' => 2])->has(MedicalHistory::factory()->hasVaccineRecords(4)->has(Consultation::factory()->hasAttached($medicines, [
+                'cantidad' => 16,
+                'indicaciones' => 'Tomar cada 12h (preferiblemente antes de comer)'
+            ])->count(3)))
         )->count(6)->create();
 
         Customer::factory()->has(
-            Pet::factory()->state(fn() => ['breed_id' => 1])->has(MedicalHistory::factory()->hasConsultations(4))
+            Pet::factory()->state(fn() => ['breed_id' => 1])->has(
+                MedicalHistory::factory()->has(Consultation::factory()->hasAttached($medicines, [
+                    'cantidad' => 8,
+                    'indicaciones' => 'Inyectar 1 ampolla cada 15 dias'
+                ])->count(4))
+            )
         )->count(6)->create();
     }
 }
