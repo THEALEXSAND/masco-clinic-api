@@ -59,7 +59,7 @@ class PetController extends Controller
         $includeAppointments = $req->query('includeAppointments');
 
         if ($includeOwner) $pet = $pet->loadMissing('customer');
-        if ($includeHistory) $pet = $pet->loadMissing(['medicalHistory' => ['consultations', 'vaccineRecords']]);
+        if ($includeHistory) $pet = $pet->loadMissing(['medicalHistory.consultations', 'medicalHistory.vaccineRecords']);
         if ($includeAppointments) $pet = $pet->loadMissing('appointments');
 
         return new PetResource($pet);
