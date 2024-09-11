@@ -8,6 +8,8 @@ class PetFilter extends ApiFilter
         'id' => ['eq', 'like'],
         'customerIdCard' => ['eq', 'like'],
         'breedId' => ['eq', 'like'],
+        'breed' => ['eq', 'like'],
+        'specie' => ['eq', 'like'],
         'name' => ['eq', 'like'],
         'gender' => ['eq', 'like'],
     ];
@@ -15,6 +17,8 @@ class PetFilter extends ApiFilter
     protected $columnMap = [
         'customerIdCard' =>  'customer_cedula',
         'breedId' =>  'breed_id',
+        'breed' =>  'breeds.nombre',
+        'specie' =>  'species.nombre',
         'name' =>  'nombre',
         'gender' =>  'sexo',
     ];

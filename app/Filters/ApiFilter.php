@@ -20,7 +20,7 @@ class ApiFilter
 
     public function transformParam(string $param)
     {
-        return $this->columnMap[$param] ?? head($this->columnMap);
+        return $this->columnMap[$param] ?? head(array_keys($this->safeParams));
     }
 
     public function transform(Request $req)

@@ -18,8 +18,14 @@ class PetController extends Controller
     public function index(Request $req)
     {
         $filter = new PetFilter();
+        $queryItems = $filter->transform($req);
 
-        $pets = parent::baseIndex($req, $filter, new Pet);
+        $pets = Pet::join('breeds', 'pets.breed_id', '=', 'breeds.id')->join('species', 'breeds.specie_id', '=', 'species.id')
+            ->select('pets.*')->where($queryItems);
+
+        $orderBy = $req->query('orderBy');
+
+        if ($orderBy) $pets = $pets->orderBy($filter->transformParam($orderBy));
 
         $includeOwner = $req->query('includeOwner');
         $includeHistory = $req->query('includeHistory');
