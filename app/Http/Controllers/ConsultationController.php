@@ -68,7 +68,7 @@ class ConsultationController extends Controller
 
         if ($includeUser) $consultation = $consultation->loadMissing('user');
         if ($includePet) $consultation = $consultation->loadMissing('medicalHistory.pet');
-        if ($includeMedicines) $consultation = $consultation->with('medicines');
+        if ($includeMedicines) $consultation = $consultation->loadMissing('medicines');
 
         return new ConsultationResource($consultation);
     }
