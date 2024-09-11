@@ -23,8 +23,11 @@ class PetFactory extends Factory
 
         $name = $gender === 'Hembra' ? fake()->firstNameFemale() : fake()->firstNameMale();
 
+        $breeds = Breed::all('id')->pluck('id');
+
         return [
             'customer_cedula' => Customer::factory(),
+            'breed_id' => fake()->randomElement($breeds),
 
             'nombre' => $name,
             'sexo' => $gender,
