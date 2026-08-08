@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BreedController;
 use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\CustomerController;
@@ -22,15 +23,17 @@ Route::group(['prefix' => 'v2', 'namespace' => 'App\Http\Controllers'], function
         'medical-histories' => MedicalHistoryController::class,
         'medicines' => MedicineController::class,
         'users' => UserController::class,
-        'vaccine-records' => VaccineRecordController::class
+        'vaccine-records' => VaccineRecordController::class,
     ]);
+
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', [AuthController::class, 'login']);
+    });
 
     Route::apiResource('species', SpecieController::class)->parameter('species', 'specie');
 
-    Route::fallback(function () {
-        return response([
-            'message' => 'Error 404. The route does not exist. Not Found!',
-            'status' => 404
-        ], 404);
-    });
+    Route::fallback(fn () => response([
+        'message' => 'Error 404. The route does not exist. Not Found!',
+        'status' => 404,
+    ], 404));
 });
