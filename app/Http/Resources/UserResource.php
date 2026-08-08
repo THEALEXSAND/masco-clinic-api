@@ -21,12 +21,11 @@ class UserResource extends JsonResource
             'name' => $this->nombre,
             'lastName' => $this->apellido,
             'email' => $this->correo,
-            'password' => $this->contraseña,
             'type' => $this->userType->nombre,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
 
-            'consultations' => ConsultationResource::make($this->whenLoaded('consultations'))
+            'consultations' => ConsultationResource::make($this->whenLoaded('consultations')),
         ];
     }
 }

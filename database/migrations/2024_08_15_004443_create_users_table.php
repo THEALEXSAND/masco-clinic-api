@@ -18,9 +18,25 @@ return new class extends Migration
             $table->string('apellido');
             $table->string('correo')->unique();
             $table->string('contraseña');
+            $table->rememberToken();
             $table->timestamps();
 
             $table->foreignId('user_type_id')->nullable()->constrained()->onDelete('set null')->onUpdate('cascade');
+        });
+
+        Schema::create('password_reset_tokens', static function (Blueprint $table) {
+            $table->string('username')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('sessions', static function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
         });
     }
 
