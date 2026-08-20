@@ -22,11 +22,11 @@ class StoreConsultationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'medicalHistoryId' => ['required', 'numeric', 'exists:medical_histories,id'],
-            'userIdCard' => ['required', 'max_digits:8', 'exists:users,cedula'],
-            'diagnostic' => ['required'],
-            'observation' => ['required'],
-            'description' => ['required']
+            'medical_history_id' => ['required', 'numeric', 'exists:medical_histories,id'],
+            'user_cedula' => ['required', 'max_digits:8', 'exists:users,cedula'],
+            'diagnostico' => ['required'],
+            'observacion' => ['required'],
+            'descripcion' => ['required']
         ];
     }
 

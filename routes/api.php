@@ -28,6 +28,7 @@ Route::group(['prefix' => 'v2', 'namespace' => 'App\Http\Controllers'], function
 
     Route::group(['prefix' => 'auth'], function () {
         Route::post('login', [AuthController::class, 'login']);
+        Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum');
     });
 
     Route::apiResource('species', SpecieController::class)->parameter('species', 'specie');

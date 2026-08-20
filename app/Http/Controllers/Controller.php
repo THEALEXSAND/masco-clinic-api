@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 abstract class Controller
 {
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var Model
      */
     protected static $modelRef;
 

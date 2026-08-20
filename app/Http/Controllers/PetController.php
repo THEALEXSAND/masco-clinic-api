@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Filters\PetFilter;
-use App\Models\Pet;
 use App\Http\Requests\StorePetRequest;
 use App\Http\Requests\UpdatePetRequest;
 use App\Http\Resources\PetCollection;
 use App\Http\Resources\PetResource;
+use App\Models\Pet;
 use Illuminate\Http\Request;
 
 class PetController extends Controller
@@ -17,24 +17,30 @@ class PetController extends Controller
      */
     public function index(Request $req)
     {
-        $filter = new PetFilter();
+        $filter = new PetFilter;
         $queryItems = $filter->transform($req);
 
-        $pets = Pet::join('breeds', 'pets.breed_id', '=', 'breeds.id')->join('species', 'breeds.specie_id', '=', 'species.id')
-            ->select('pets.*')->where($queryItems);
+        $pets = Pet::with('breed.specie')->where($queryItems);
 
         $orderBy = $req->query('orderBy');
 
-        if ($orderBy) $pets = $pets->orderBy($filter->transformParam($orderBy));
+        if ($orderBy) {
+            $pets = $pets->orderBy($filter->transformParam($orderBy));
+        }
 
         $includeOwner = $req->query('includeOwner');
         $includeHistory = $req->query('includeHistory');
         $includeAppointments = $req->query('includeAppointments');
 
-        if ($includeOwner) $pets = $pets->with('customer');
-        if ($includeHistory) $pets = $pets->with(['medicalHistory' => ['consultations', 'vaccineRecords']]);
-        if ($includeAppointments) $pets = $pets->with('appointments');
-
+        if ($includeOwner) {
+            $pets = $pets->with('customer');
+        }
+        if ($includeHistory) {
+            $pets = $pets->with(['medicalHistory' => ['consultations', 'vaccineRecords']]);
+        }
+        if ($includeAppointments) {
+            $pets = $pets->with('appointments');
+        }
 
         return new PetCollection($pets->paginate()->appends($req->query()));
     }
@@ -64,9 +70,15 @@ class PetController extends Controller
         $includeHistory = $req->query('includeHistory');
         $includeAppointments = $req->query('includeAppointments');
 
-        if ($includeOwner) $pet = $pet->loadMissing('customer');
-        if ($includeHistory) $pet = $pet->loadMissing(['medicalHistory.consultations', 'medicalHistory.vaccineRecords']);
-        if ($includeAppointments) $pet = $pet->loadMissing('appointments');
+        if ($includeOwner) {
+            $pet = $pet->loadMissing('customer');
+        }
+        if ($includeHistory) {
+            $pet = $pet->loadMissing(['medicalHistory.consultations', 'medicalHistory.vaccineRecords']);
+        }
+        if ($includeAppointments) {
+            $pet = $pet->loadMissing('appointments');
+        }
 
         return new PetResource($pet);
     }

@@ -24,18 +24,18 @@ class UpdateConsultationRequest extends FormRequest
         $method = $this->method();
 
         if ($method === 'PUT') return [
-            'medicalHistoryId' => ['required', 'numeric', 'exists:medical_histories,id'],
-            'userIdCard' => ['required', 'max_digits:8', 'exists:users,cedula'],
-            'diagnostic' => ['required'],
-            'observation' => ['required'],
-            'description' => ['required']
+            'medical_history_id' => ['required', 'numeric', 'exists:medical_histories,id'],
+            'user_cedula' => ['required', 'max_digits:8', 'exists:users,cedula'],
+            'diagnostico' => ['required'],
+            'observacion' => ['required'],
+            'descripcion' => ['required']
         ];
         else return [
-            'medicalHistoryId' => ['sometimes', 'numeric', 'exists:medical_histories,id'],
-            'userIdCard' => ['sometimes', 'max_digits:8', 'exists:users,cedula'],
-            'diagnostic' => ['sometimes'],
-            'observation' => ['sometimes'],
-            'description' => ['sometimes']
+            'medical_history_id' => ['sometimes', 'numeric', 'exists:medical_histories,id'],
+            'user_cedula' => ['sometimes', 'max_digits:8', 'exists:users,cedula'],
+            'diagnostico' => ['sometimes'],
+            'observacion' => ['sometimes'],
+            'descripcion' => ['sometimes']
         ];
     }
 
