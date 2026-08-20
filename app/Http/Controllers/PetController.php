@@ -58,7 +58,7 @@ class PetController extends Controller
      */
     public function store(StorePetRequest $req)
     {
-        return new PetResource(Pet::create($req->validated()));
+        return new PetResource(Pet::create($req->all()));
     }
 
     /**
