@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Filters\UserFilter;
-use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $req)
     {
-        $filter = new UserFilter();
+        $filter = new UserFilter;
 
         $users = parent::baseIndex($req, $filter, new User);
 
@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        return new UserResource(User::create($request->validated()));
     }
 
     /**
@@ -47,7 +47,9 @@ class UserController extends Controller
     {
         $includeConsultations = $req->query('includeConsultations');
 
-        if ($includeConsultations) return new UserResource($user->loadMissing('consultations'));
+        if ($includeConsultations) {
+            return new UserResource($user->loadMissing('consultations'));
+        }
 
         return new UserResource($user);
     }
@@ -65,7 +67,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        return parent::baseUpdate($request, $user);
     }
 
     /**

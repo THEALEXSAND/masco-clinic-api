@@ -16,6 +16,15 @@ class User extends Authenticatable
 
     public $incrementing = false;
 
+    protected $fillable = [
+        'cedula',
+        'nombre',
+        'apellido',
+        'correo',
+        'contraseña',
+        'user_type_id',
+    ];
+
     protected $hidden = [
         'contraseña',
         'remember_token',
